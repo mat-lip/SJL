@@ -1,0 +1,2090 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maturita — poznámky</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f1117;
+  --bg-warm: #161820;
+  --paper: #1a1d27;
+  --ink: #e8e6e1;
+  --ink-soft: #a8a4a0;
+  --ink-fade: #6a6670;
+  --accent: #e07b54;
+  --accent-soft: #c4603a;
+  --rule: #2e3040;
+  --highlight: #252835;
+  --math-accent: #5b8dd9;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Playfair Display', Georgia, serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1.65;
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(224, 123, 84, 0.06), transparent 40%),
+    radial-gradient(circle at 80% 90%, rgba(224, 123, 84, 0.04), transparent 40%);
+  min-height: 100vh;
+}
+
+/* HEADER */
+.masthead {
+  border-bottom: 3px double var(--ink);
+  padding: 60px 40px 40px;
+  text-align: center;
+  background: var(--paper);
+  position: relative;
+}
+.masthead::before {
+  content: "✦  ✦  ✦";
+  position: absolute;
+  top: 20px; left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  letter-spacing: 1em;
+  color: var(--accent);
+}
+.masthead .kicker {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--ink-fade);
+  margin-bottom: 16px;
+}
+.masthead h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 14px;
+}
+.masthead h1 strong {
+  font-weight: 700;
+  font-style: normal;
+  color: var(--accent);
+}
+.masthead .subtitle {
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  font-style: italic;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* TOP NAVIGATION */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--paper);
+  border-bottom: 3px double var(--ink);
+  padding: 12px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+.topnav a {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-fade);
+  text-decoration: none;
+  padding: 10px 18px;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+.topnav a:hover { color: var(--accent); border-color: var(--accent); }
+.topnav a.math { color: var(--math-accent); border-color: var(--math-accent); }
+.topnav a.math:hover { background: var(--math-accent); color: var(--bg); }
+.topnav a.sk:hover { background: var(--accent); color: var(--bg); }
+
+/* SECTION DELIMITER (banner medzi témami) */
+.section-banner {
+  padding: 80px 40px 40px;
+  text-align: center;
+  border-top: 3px double var(--ink);
+  margin-top: 40px;
+  scroll-margin-top: 80px;
+}
+.section-banner.math { border-top-color: var(--math-accent); }
+.section-banner .label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.section-banner.math .label { color: var(--math-accent); }
+.section-banner h2 {
+  font-size: 3rem;
+  font-weight: 500;
+  font-style: italic;
+  margin-bottom: 12px;
+}
+.section-banner h2 strong { color: var(--accent); font-weight: 700; font-style: normal; }
+.section-banner.math h2 strong { color: var(--math-accent); }
+.section-banner p {
+  color: var(--ink-soft);
+  max-width: 600px;
+  margin: 0 auto;
+  font-style: italic;
+}
+
+/* CONTENT WRAPPER */
+.content-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+/* INTRO BOX */
+.intro {
+  background: var(--paper);
+  padding: 28px 32px;
+  margin-bottom: 48px;
+  border-left: 4px solid var(--accent);
+  border-radius: 2px;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+}
+.intro.math { border-left-color: var(--math-accent); }
+.intro h3 {
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+  color: var(--accent);
+}
+.intro.math h3 { color: var(--math-accent); }
+.intro p { color: var(--ink-soft); }
+.intro ul { margin-top: 12px; padding-left: 20px; color: var(--ink-soft); }
+.intro li { margin: 4px 0; }
+
+/* QUESTION CARD */
+.otazka {
+  margin-bottom: 60px;
+  background: var(--paper);
+  padding: 40px 44px;
+  border-radius: 2px;
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.4);
+  position: relative;
+  scroll-margin-top: 80px;
+}
+.otazka::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-soft) 50%, transparent);
+}
+.otazka.math-q::before {
+  background: linear-gradient(90deg, var(--math-accent), #8b5bbf 50%, transparent);
+}
+@media (max-width: 700px) {
+  .otazka { padding: 24px 22px; }
+}
+
+.otazka-header {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+}
+.otazka-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.9rem;
+  color: var(--accent);
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  flex-shrink: 0;
+}
+.math-q .otazka-num { color: var(--math-accent); }
+.otazka-title {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+@media (max-width: 700px) {
+  .otazka-title { font-size: 1.4rem; }
+  .otazka-header { flex-direction: column; gap: 6px; }
+}
+.otazka-title em {
+  color: var(--accent);
+  font-style: italic;
+  font-weight: 500;
+}
+.math-q .otazka-title em { color: var(--math-accent); }
+
+/* SECTION INSIDE QUESTION */
+.section { margin: 28px 0; }
+.section-label {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--ink);
+  padding: 5px 12px;
+  margin-bottom: 14px;
+  border-radius: 1px;
+}
+.section-label.literatura { background: var(--accent); }
+.section-label.sloh { background: #4a9e6b; }
+
+.section h4 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 24px 0 10px;
+  border-bottom: 1px dotted var(--rule);
+  padding-bottom: 6px;
+}
+.section h5 {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  margin: 18px 0 8px;
+  font-weight: 500;
+}
+.math-q .section h5 { color: var(--math-accent); }
+
+.section p { margin: 10px 0; color: var(--ink-soft); }
+.section ul, .section ol { margin: 10px 0 10px 24px; color: var(--ink-soft); }
+.section li { margin: 6px 0; }
+.section li strong { color: var(--ink); font-weight: 600; }
+
+/* DEFINITION LIST */
+dl.def {
+  margin: 14px 0;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 8px 20px;
+}
+dl.def dt {
+  font-weight: 600;
+  color: var(--ink);
+  font-style: italic;
+}
+dl.def dd { color: var(--ink-soft); }
+
+/* PRIKLAD / FORMULA BOX */
+.priklad {
+  background: var(--bg-warm);
+  border-left: 3px solid var(--accent);
+  padding: 14px 18px;
+  margin: 14px 0;
+  font-style: italic;
+  font-size: 0.96rem;
+  color: var(--ink-soft);
+}
+.math-q .priklad {
+  border-left-color: var(--math-accent);
+  font-style: normal;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.88rem;
+  line-height: 1.8;
+}
+.priklad strong { font-style: normal; color: var(--ink); font-weight: 600; }
+.math-q .priklad strong { color: var(--math-accent); font-weight: 500; }
+
+/* AUTHOR CHIPS */
+.autori { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
+.autor {
+  background: var(--bg-warm);
+  padding: 6px 12px;
+  font-size: 0.88rem;
+  border: 1px solid var(--rule);
+  color: var(--ink-soft);
+  border-radius: 1px;
+}
+.autor strong { color: var(--accent); }
+
+/* GRID FOR PREHLAD/SLOH */
+.prehled-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 60px;
+}
+@media (max-width: 700px) { .prehled-grid { grid-template-columns: 1fr; } }
+
+.prehled-card {
+  background: var(--paper);
+  padding: 18px 22px;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 12px;
+  align-items: start;
+  cursor: pointer;
+  transition: transform 0.15s, border-top-color 0.15s;
+  border-top: 3px solid var(--rule);
+  text-decoration: none;
+  color: inherit;
+}
+.prehled-card:hover {
+  transform: translateY(-2px);
+  border-top-color: var(--accent);
+}
+.prehled-card:hover .card-num { color: var(--accent); }
+.card-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--ink-fade);
+  line-height: 1;
+  padding-top: 4px;
+  transition: color 0.15s;
+}
+.card-tema { font-size: 1.05rem; font-weight: 600; line-height: 1.25; margin-bottom: 5px; }
+.card-sloh {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 7px;
+}
+.card-diela { font-size: 0.86rem; color: var(--ink-soft); line-height: 1.5; }
+
+.sloh-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 60px;
+}
+@media (max-width: 900px) { .sloh-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .sloh-grid { grid-template-columns: 1fr; } }
+.sloh-card {
+  background: var(--paper);
+  padding: 18px 20px;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+  border-top: 3px solid var(--rule);
+  transition: border-top-color 0.2s;
+}
+.sloh-card:hover { border-top-color: var(--accent); }
+.sloh-card .sc-name { font-weight: 600; font-size: 1.05rem; margin-bottom: 5px; }
+.sloh-card .sc-styl {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.sloh-card .sc-znaky { font-size: 0.86rem; color: var(--ink-soft); line-height: 1.55; }
+.sloh-card .sc-zadanie {
+  margin-top: 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--ink-fade);
+  letter-spacing: 0.08em;
+}
+
+/* QUICK INDEX (zoznam zadaní v topbare/sidebare nahradil) */
+.quick-index {
+  background: var(--paper);
+  padding: 28px 32px;
+  margin-bottom: 48px;
+  border: 1px solid var(--rule);
+}
+.quick-index h3 {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-fade);
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--rule);
+}
+.quick-index ol {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px 16px;
+  counter-reset: idx;
+}
+@media (max-width: 600px) { .quick-index ol { grid-template-columns: 1fr; } }
+.quick-index li {
+  counter-increment: idx;
+  font-size: 0.95rem;
+}
+.quick-index a {
+  display: block;
+  padding: 6px 10px;
+  color: var(--ink-soft);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: all 0.2s;
+  line-height: 1.3;
+}
+.quick-index a::before {
+  content: counter(idx, decimal-leading-zero) "  ";
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--accent);
+  margin-right: 6px;
+}
+.quick-index.math a::before { color: var(--math-accent); }
+.quick-index a:hover {
+  background: var(--bg-warm);
+  border-left-color: var(--accent);
+  color: var(--ink);
+}
+.quick-index.math a:hover { border-left-color: var(--math-accent); }
+
+/* FAB */
+#fab {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 52px;
+  height: 52px;
+  background: var(--accent);
+  color: var(--bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "DM Mono", monospace;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.25s, transform 0.25s, background 0.2s;
+  z-index: 999;
+  pointer-events: none;
+}
+#fab.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+#fab:hover { background: var(--accent-soft); }
+@media (max-width: 900px) {
+  #fab { bottom: 20px; right: 20px; width: 46px; height: 46px; font-size: 1rem; }
+}
+
+/* FOOTER */
+footer {
+  border-top: 3px double var(--ink);
+  padding: 40px;
+  text-align: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-fade);
+  background: var(--paper);
+}
+/* PROGRESS BAR */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+  width: 0%;
+  z-index: 1000;
+  transition: width 0.1s ease;
+  box-shadow: 0 0 10px rgba(224, 123, 84, 0.5);
+}
+
+/* SEARCH BAR */
+.search-wrap {
+  background: var(--paper);
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  justify-content: center;
+  position: sticky;
+  top: 64px;
+  z-index: 90;
+}
+.search-input {
+  width: 100%;
+  max-width: 500px;
+  background: var(--bg-warm);
+  border: 1px solid var(--rule);
+  color: var(--ink);
+  padding: 10px 16px 10px 40px;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  border-radius: 2px;
+  transition: border-color 0.2s;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237a7066' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='8'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>");
+  background-repeat: no-repeat;
+  background-position: 14px center;
+}
+.search-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.search-input::placeholder { color: var(--ink-fade); font-style: italic; }
+
+/* HIDDEN POČAS HĽADANIA */
+.otazka.hidden, .quick-index li.hidden { display: none; }
+.search-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--ink-fade);
+  font-style: italic;
+  display: none;
+}
+.search-empty.visible { display: block; }
+
+/* JEMNÉ ANIMÁCIE PRI HOVERI NA OTÁZKU */
+.otazka {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.otazka:hover {
+  transform: translateY(-2px);
+  box-shadow: 8px 8px 0 rgba(0,0,0,0.45);
+}
+
+/* JEMNÝ FADE-IN PRI SCROLLE */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.otazka, .prehled-card, .sloh-card { animation: fadeUp 0.4s ease backwards; }
+
+/* PRINT */
+@media print {
+  body { background: white !important; color: black !important; }
+  .topnav, .search-wrap, #fab, .progress-bar, footer { display: none !important; }
+  .masthead { background: white !important; border-bottom-color: black; }
+  .masthead h1, .masthead h1 strong { color: black !important; }
+  .masthead .kicker, .masthead .subtitle { color: #555 !important; }
+  .otazka {
+    background: white !important;
+    box-shadow: none !important;
+    border: 1px solid #ccc;
+    page-break-inside: avoid;
+    color: black !important;
+    margin-bottom: 20px;
+    padding: 20px;
+  }
+  .otazka * { color: black !important; }
+  .otazka-title em, .otazka-num { color: #8b2c1d !important; }
+  .priklad { background: #f5f0e8 !important; border-left-color: #8b2c1d !important; }
+  .section h4 { border-bottom-color: #ccc !important; }
+  .quick-index, .intro { background: white !important; border-color: #ccc !important; }
+  .quick-index a, .intro p { color: black !important; }
+  .section-banner { border-top: 2px solid black !important; }
+  .section-banner h2, .section-banner .label, .section-banner p { color: black !important; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<header class="masthead">
+  <div class="kicker">Stredná škola · Maturitná skúška · 2026</div>
+  <h1>Maturita zo <strong>slovenčiny</strong></h1>
+  <p class="subtitle">Komplexné poznámky k tridsiatim ústnym zadaniam — literatúra, jazykový rozbor, slohové útvary</p>
+</header>
+
+<nav class="topnav">
+  <a href="#sk-uvod" class="sk">Poznámky</a>
+  <a href="#sk-prehlad" class="sk">Rýchly prehľad</a>
+  <a href="#sk-sloh" class="sk">Slohové útvary</a>
+  </nav>
+
+<div class="section-banner" id="sk-uvod">
+  <div class="label">Časť I</div>
+  <h2>Maturita zo <strong>slovenčiny</strong></h2>
+  <p>30 ústnych zadaní — literatúra, jazykový rozbor, slohové útvary</p>
+</div>
+
+<div class="content-wrap">
+
+  <div class="intro">
+    <h3>Ako pracovať s týmito poznámkami</h3>
+    <p>Každé zadanie má rovnakú trojdielnu štruktúru — A) jazykový štýl + slohový postup, B) jazykový rozbor (5 rovín jazyka), C) konkrétny slohový útvar + literárna téma. Časti A a B sú spoločné pre všetky zadania, preto sú spracované raz na začiatku.</p>
+  </div>
+
+  <div class="quick-index">
+    <h3>Zoznam zadaní zo slovenčiny</h3>
+    <ol>
+      <li><a href="#otazka-1">Antická literatúra</a></li>
+      <li><a href="#otazka-2">Klasicizmus</a></li>
+      <li><a href="#otazka-3">Biblia a literatúra</a></li>
+      <li><a href="#otazka-4">Outsider</a></li>
+      <li><a href="#otazka-5">Prvá svetová vojna v literatúre</a></li>
+      <li><a href="#otazka-6">Druhá svetová vojna v literatúre</a></li>
+      <li><a href="#otazka-7">Láska v literatúre</a></li>
+      <li><a href="#otazka-8">Dedina v literatúre</a></li>
+      <li><a href="#otazka-9">Realizmus</a></li>
+      <li><a href="#otazka-10">Romantizmus</a></li>
+      <li><a href="#otazka-11">Dráma</a></li>
+      <li><a href="#otazka-12">Orava v literárnych textoch</a></li>
+      <li><a href="#otazka-13">Moderné prúdy v literatúre</a></li>
+      <li><a href="#otazka-14">Lyrizovaná próza a motív návratu</a></li>
+      <li><a href="#otazka-15">Moderná próza</a></li>
+      <li><a href="#otazka-16">Ľudské bytie v literatúre</a></li>
+      <li><a href="#otazka-17">Netradičné postupy v literatúre</a></li>
+      <li><a href="#otazka-18">Rozprávač</a></li>
+      <li><a href="#otazka-19">Román</a></li>
+      <li><a href="#otazka-20">Problém generácií v literatúre</a></li>
+      <li><a href="#otazka-21">Slovenská poézia</a></li>
+      <li><a href="#otazka-22">Moderná dráma</a></li>
+      <li><a href="#otazka-23">Literárna postava</a></li>
+      <li><a href="#otazka-24">Priateľstvo v literatúre</a></li>
+      <li><a href="#otazka-25">Zápletka zmeny, zámeny, premeny</a></li>
+      <li><a href="#otazka-26">Láska ako konflikt</a></li>
+      <li><a href="#otazka-27">Humor v literatúre</a></li>
+      <li><a href="#otazka-28">Kompozícia literárneho textu</a></li>
+      <li><a href="#otazka-29">Dobro a zlo v literatúre</a></li>
+      <li><a href="#otazka-30">Epika</a></li>
+    </ol>
+  </div>
+
+<section class="otazka" id="spolocne">
+  <div class="otazka-header">
+    <span class="otazka-num">SPOLOČNÉ · A + B</span>
+    <h2 class="otazka-title">Jazykový štýl, slohový postup a <em>jazykový rozbor</em></h2>
+  </div>
+
+  <div class="section">
+    <span class="section-label">A) Jazykový štýl a slohový postup</span>
+
+    <h4>Jazykové štýly</h4>
+    <dl class="def">
+      <dt>Hovorový</dt><dd>súkromná komunikácia, expresíva, nárečové prvky, neúplné vety</dd>
+      <dt>Náučný (odborný)</dt><dd>presnosť, termíny, objektívnosť, citácie — učebnice, štúdie</dd>
+      <dt>Publicistický</dt><dd>aktuálnosť, expresivita, klišé — noviny, spravodajstvo</dd>
+      <dt>Umelecký</dt><dd>obraznosť, trópy, figúry, estetická funkcia — beletria, poézia</dd>
+      <dt>Administratívny</dt><dd>vecnosť, ustálené formulácie, formuláre — úrady, zmluvy</dd>
+      <dt>Rečnícky</dt><dd>presvedčiť poslucháča, kontakt s publikom — prejav, kázeň</dd>
+    </dl>
+
+    <h4>Slohové postupy</h4>
+    <dl class="def">
+      <dt>Informačný</dt><dd>kto, čo, kedy, kde — správa, oznam, inzerát</dd>
+      <dt>Rozprávací</dt><dd>časová postupnosť deja — rozprávanie, poviedka</dd>
+      <dt>Opisný</dt><dd>vlastnosti, znaky — opis, charakteristika, návod</dd>
+      <dt>Výkladový</dt><dd>logické vzťahy, príčina–následok — výklad, prednáška</dd>
+      <dt>Úvahový</dt><dd>subjektívny rozbor problému — úvaha, esej</dd>
+    </dl>
+
+    <h4>Argumentácia</h4>
+    <p>Argumentácia je presviedčanie pomocou logických dôvodov. Skladá sa z:</p>
+    <ul>
+      <li><strong>Tvrdenie (téza)</strong> — myšlienka, ktorú chceme dokázať</li>
+      <li><strong>Argument</strong> — dôvod podporujúci tézu (fakt, štatistika, citát autority, príklad, analógia)</li>
+      <li><strong>Dôkaz / podporný materiál</strong> — konkrétne údaje</li>
+      <li><strong>Záver</strong> — zhrnutie, výzva</li>
+    </ul>
+    <p>Druhy argumentov: <em>logický</em> (na rozum), <em>emocionálny</em> (na cit), <em>etický</em> (na hodnoty), <em>autoritatívny</em> (citát odborníka).</p>
+  </div>
+
+  <div class="section">
+    <span class="section-label">B) Jazykový rozbor vety — všetky roviny</span>
+
+    <h4>1. Zvuková (fonetická) rovina</h4>
+    <ul>
+      <li>počet hlások a slabík</li>
+      <li>znelé / neznelé spoluhlásky, spodobovanie</li>
+      <li>rytmické krátenie (zákon)</li>
+      <li>prízvuk (na prvej slabike), intonácia, melódia vety</li>
+    </ul>
+
+    <h4>2. Morfologická (tvaroslovná) rovina</h4>
+    <ul>
+      <li>určiť slovný druh každého slova (10 slovných druhov)</li>
+      <li>gramatické kategórie: rod, číslo, pád, vzor (podstatné mená); osoba, číslo, čas, spôsob, vid (slovesá)</li>
+    </ul>
+
+    <h4>3. Lexikálna (slovná) rovina</h4>
+    <ul>
+      <li>spisovné × nespisovné slová</li>
+      <li>jednoznačné × viacvýznamové</li>
+      <li>synonymá, antonymá, homonymá</li>
+      <li>domáce × cudzie slová, neologizmy, archaizmy</li>
+      <li>frazeologizmy</li>
+    </ul>
+
+    <h4>4. Syntaktická (skladobná) rovina</h4>
+    <ul>
+      <li>typ vety podľa zloženia: jednoduchá / súvetie (priraďovacie, podraďovacie)</li>
+      <li>podľa obsahu: oznamovacia, opytovacia, rozkazovacia, želacia, zvolacia</li>
+      <li>vetné členy: podmet, prísudok, predmet, prívlastok, príslovkové určenie, doplnok</li>
+    </ul>
+
+    <h4>5. Štylistická rovina</h4>
+    <ul>
+      <li>štýl textu, expresívnosť slov</li>
+      <li>trópy a figúry (metafora, metonymia, prirovnanie, epiteton, personifikácia, anafora, gradácia)</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-1">
+  <div class="otazka-header"><span class="otazka-num">01</span>
+    <h2 class="otazka-title">Antická literatúra <em>· reklamný leták</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Sofokles — Antigona</h4>
+    <ul>
+      <li><strong>Autor:</strong> Sofokles (grécky dramatik, 5. stor. p. n. l.)</li>
+      <li><strong>Dej:</strong> Antigona pochová brata Polyneika napriek zákazu kráľa Kreóna. Kreón ju dá zamurovať. Antigona sa obesí. Kreónov syn Haimon (jej snúbenec) sa zabije, kráľovná Eurydika tiež. Kreón ostane sám — trestom je osamelosť.</li>
+      <li><strong>Hlavný konflikt:</strong> božský zákon (povinnosť pochovať mŕtvych) <em>vs.</em> ľudský zákon (Kreónov edikt)</li>
+      <li><strong>Antigona</strong> = symbol morálnej odvahy, neposlušnosti voči nespravodlivosti</li>
+      <li><strong>Kreón</strong> = hybris (pýcha), tragická chyba — poznanie pravdy prichádza neskoro</li>
+      <li><strong>Zbor</strong> = svedomie spoločnosti, komentuje dej</li>
+      <li><strong>Žáner:</strong> tragédia, trojjednota miesta/času/deja, grécke divadlo</li>
+    </ul>
+    <div class="priklad"><strong>Kľúčová replika Antigony:</strong> „Nie preto som tu, aby som s tebou nenávidela, ale aby som milovala." — vernosť rodine a bohom nad zákonom štátu.</div>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Reklamný leták</h4>
+    <p><strong>Štýl:</strong> publicistický. <strong>Postup:</strong> informačno-výzvový.</p>
+    <ul>
+      <li>krátky výrazný slogan, expresívne slová (<em>jedinečný, zľava, nový</em>)</li>
+      <li>rozkazovací spôsob: <em>Navštívte! Kúpte!</em></li>
+      <li>grafická úprava, obrázok, cena, kontakt</li>
+      <li><strong>Štruktúra:</strong> slogan → obrázok → opis → výhody → výzva → kontakt</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-2">
+  <div class="otazka-header"><span class="otazka-num">02</span>
+    <h2 class="otazka-title">Klasicizmus <em>· anketa</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Molière — Lakomec · Gavlovič — Valaská škola · Kollár — Predspev</h4>
+    <ul>
+      <li><strong>Molière — Lakomec:</strong> Harpagon (lakomec) skrýva truhlu s peniazmi v záhrade. Chce si vziať Marianu, do ktorej je zaľúbený aj jeho syn Kleantes. Dcéra Elíza miluje Valéra. Lakomstvo ničí rodinu. Komika charakteru — komédia klasicizmu.</li>
+      <li><strong>Hugolín Gavlovič — Valaská škola, mravúv stodola:</strong> didaktická poézia 18. stor. Mravné poučenia písané bernolákovčinou. Zbierka prísloví a životných pravidiel — ideál skromného pastierského života.</li>
+      <li><strong>Ján Kollár — Predspev zo Slávy dcéry:</strong> sonet. Básnik plače nad osudom Slovanov — tam, kde bývali, je teraz cudzina. Idea slovanskej vzájomnosti. Predspev = najznámejšia časť, elegický tón.</li>
+    </ul>
+    <div class="priklad"><strong>Klasicizmus — znaky:</strong> rozum nad citom, vzor v antike, trojjednota miesta/času/deja, vznešený jazyk, mravný ideál, povinnosť k štátu.</div>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Anketa</h4>
+    <p><strong>Štýl:</strong> publicistický. <strong>Postup:</strong> informačný.</p>
+    <ul>
+      <li>rovnaká otázka — rôzni respondenti, rôzne odpovede</li>
+      <li>meno, vek, povolanie respondenta</li>
+      <li>cieľ: zmapovať verejnú mienku na konkrétnu tému</li>
+      <li>záver: vyhodnotenie odpovedí</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-3">
+  <div class="otazka-header"><span class="otazka-num">03</span>
+    <h2 class="otazka-title">Biblia a literatúra <em>· sťažnosť</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Biblia — Starý a Nový zákon</h4>
+    <ul>
+      <li><strong>Starý zákon:</strong> Genezis (stvorenie, Adam a Eva, Kain a Ábel, Noe), Exodus (Mojžiš, Desatoro), Kniha Jóbova (zmysel utrpenia), Žalmy, Pieseň piesní</li>
+      <li><strong>Nový zákon:</strong> 4 evanjeliá — život Ježiša Krista. Podobenstvá: o márnotratnom synovi, o milosrdnom Samaritánovi. Apokalypsa Jána.</li>
+      <li><strong>Biblia v slov. literatúre:</strong> Milan Rúfus — <em>Zvony</em> (zbierka): existenciálna lyrika s kresťanskou hĺbkou, otázky viery, rodnej zeme, materstva. Rudolf Dilong (kat. moderna) — mystické a náboženské motívy v lyrike.</li>
+      <li><strong>Jazykový vplyv:</strong> biblické frazémy — <em>judášsky bozk, kainovské znamenie, Šalamúnova múdrosť, archa Noemova</em></li>
+    </ul>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Sťažnosť</h4>
+    <p><strong>Štýl:</strong> administratívny. <strong>Postup:</strong> informačno-opisný.</p>
+    <ul>
+      <li>vecná, slušná formulácia — žiadne emócie</li>
+      <li>presný opis problému, dátum, miesto, prílohy</li>
+      <li>žiadosť o nápravu alebo náhradu škody</li>
+      <li><strong>Štruktúra:</strong> hlavička → predmet → opis → požiadavka → prílohy → podpis</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-4">
+  <div class="otazka-header"><span class="otazka-num">04</span>
+    <h2 class="otazka-title">Outsider <em>· umelecký opis</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Outsider — človek na okraji</h4>
+    <ul>
+      <li><strong>Jerome David Salinger — Kto chytá v žite:</strong> Holden Caulfield (16 r.) — vylúčený zo školy Pencey Prep. Túla sa 3 dni po New Yorku. Odmieta falošný svet dospelých. Miluje sestru Phoebe. Brat Allie zomrel na leukémiu — Holden nesie traumu. Chce „chytať deti v žite" = chrániť nevinnosť. Rozprávanie v 1. osobe, hovorový jazyk.</li>
+      <li><strong>Dobroslav Chrobák — Drak sa vracia:</strong> Martin Lepiš (Drak) sa po rokoch vráti do dediny Krivány. Dedinčania ho odmietajú, vinia z nešťastia Evy Pelkovej. Šimon Jariabek. Drak odíde dobrovoľne — symbol vyhnanca, nepochopeného človeka. Lyrizovaná próza.</li>
+      <li><strong>Jozef Cíger Hronský — Jozef Mak:</strong> Mak = „človek-milión", tichý trpiteľ. Manželka Maruša ho zradí. Mak znesie všetko a trpí potichu. Outsider vo vlastnej rodine i dedine. Ornamentálna próza.</li>
+      <li><strong>Ladislav Mňačko — Ako chutí moc:</strong> Frank Foltýn — fotoreportér. Na vrchole kariéry stratil morálny kompas. Príbeh muža, ktorého pohltila moc — outsider vo vlastnom svedomí.</li>
+    </ul>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Umelecký opis</h4>
+    <p><strong>Štýl:</strong> umelecký. <strong>Postup:</strong> opisný so subjektívnymi prvkami.</p>
+    <ul>
+      <li>subjektívny pohľad, estetická funkcia</li>
+      <li>metafory, prirovnania, epitetá, personifikácia</li>
+      <li>zachytáva atmosféru, náladu, dojem</li>
+    </ul>
+    <div class="priklad">„Stará lipa pred domom <em>vystierala konáre ako unavená babka ramená</em>."</div>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-5">
+  <div class="otazka-header"><span class="otazka-num">05</span>
+    <h2 class="otazka-title">Prvá svetová vojna v literatúre <em>· noticka — správa</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Remarque — Na záp. nič nového · Rolland — Peter a Lucia · Urban — Živý bič</h4>
+    <ul>
+      <li><strong>Erich Maria Remarque — Na západe nič nového:</strong> Paul Bäumer (19 r.) — nemecký vojak. Kamaráti: Müller, Kropp, Kemmerich, Kat. Hrôzy zákopov, plyn, smrť kamarátov. Paul zabije Gérarda Duvala — uvedomí si: sú rovnakí ľudia. Paul zomiera v októbri 1918 (deň pred prímerím). Správa: „Na západe nič nového." <em>Stratená generácia.</em></li>
+      <li><strong>Romain Rolland — Peter a Lucia:</strong> Paríž 1918. Peter (18 r.) a Lucia (maliarka) sa stretnú v metre počas náletu. Láska rastie napriek vojne. Na Veľký piatok 1918 zahynú pri bombardovaní kostola Saint-Gervais. Pacifistický román — hymna zničenej mladosti.</li>
+      <li><strong>Milo Urban — Živý bič:</strong> oravská dedina Ráztoky za 1. sv. vojny. <em>Iliáš Durčo</em> = trpiteľský typ — znáša všetko potichu. <em>Adam Hlavaj</em> = aktívna vzbura. Vojna zničí dedinu i rodiny. Dva typy reakcie na útlak.</li>
+    </ul>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Noticka — krátka správa</h4>
+    <p><strong>Štýl:</strong> publicistický. <strong>Postup:</strong> informačný.</p>
+    <ul>
+      <li>3–6 viet: kto, čo, kedy, kde — bez komentára, bez hodnotenia</li>
+      <li>vecnosť, objektívnosť, minulý čas, 3. osoba</li>
+      <li>najkratší spravodajský útvar (na okraji novín)</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-6">
+  <div class="otazka-header"><span class="otazka-num">06</span>
+    <h2 class="otazka-title">Druhá svetová vojna v literatúre <em>· rečnícky prejav</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Bednár — Kolíska · Mňačko — Ako chutí moc · Jašík — Námestie sv. Alžbety · Bukovčan — Kým kohút nezaspieva</h4>
+    <ul>
+      <li><strong>Alfonz Bednár — Kolíska:</strong> poviedkový cyklus. Morálne zlyhania počas vojny a po nej — zrada, strach, zbabelosť, výčitky svedomia. Psychologická próza.</li>
+      <li><strong>Ladislav Mňačko — Ako chutí moc:</strong> Frank Foltýn. Fotoreportér, partizán počas SNP. Po vojne sa stane mocným funkcionárom — moc ho morálne zničí. Dokumentárny štýl, hovorová reč.</li>
+      <li><strong>Rudolf Jašík — Námestie svätej Alžbety:</strong> Igor Hamar (Slovák) a Eva Weissová (Židovka) v Slovenskom štáte. Ich láska naráža na rasové zákony. Eva je deportovaná a zahynie. Igor prežije — a musí žiť s vinou. Námestie sv. Alžbety v Bratislave = symbol.</li>
+      <li><strong>Ivan Bukovčan — Kým kohút nezaspieva:</strong> dráma. Šesť mužov a žena uzavretí v pivnici — vedia, že ráno prídu Nemci a jeden z nich ich prezradil. Musia odhaliť zradcu. Psychologické napätie, morálne dilemy.</li>
+    </ul>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Rečnícky prejav</h4>
+    <p><strong>Štýl:</strong> rečnícky. <strong>Postup:</strong> výkladový + presviedčací.</p>
+    <ul>
+      <li><strong>Štruktúra:</strong> oslovenie → úvod → jadro (argumenty) → záver (výzva, poďakovanie)</li>
+      <li>rečnícke otázky, anafory, kontakt s publikom, gradácia</li>
+      <li>spisovný jazyk, vyšší štýl</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-7">
+  <div class="otazka-header"><span class="otazka-num">07</span>
+    <h2 class="otazka-title">Láska v literatúre <em>· obhajobná reč</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Sládkovič — Marína · Hviezdoslav — Hájnikova žena · Tolstoj — Anna Kareninová · Jašík — Námestie sv. Alžbety · Hugo — Chrám Matky Božej · Rolland — Peter a Lucia</h4>
+    <ul>
+      <li><strong>Andrej Sládkovič — Marína:</strong> 291 strof. Básnik miluje Marínu Pišlovu — rodičia im bránia. Marína = symbol krásy i Slovenska. Romantická ľúbostno-vlastenecká lyrika. „Ja v srdci nosím záhradu..."</li>
+      <li><strong>Pavol Országh Hviezdoslav — Hájnikova žena:</strong> hájnik Michal Čajka a jeho Hanka. Šľachtic Artuš Villányi napadne Hanku — ona ho zastrelí. Súd Hanku oslobodí. Láska verzus spoločenský tlak.</li>
+      <li><strong>Lev Nikolajevič Tolstoj — Anna Kareninová:</strong> Anna opustí manžela Karenina pre grófa Vronského. Spoločnosť ju vyradí. Vronský sa ochladí. Anna skočí pod vlak. Paralelný príbeh: Levin a Kitty — pokojný rodinný život.</li>
+      <li><strong>Rudolf Jašík — Námestie svätej Alžbety:</strong> Igor a Eva — láska v čase rasových zákonov. Tragický koniec.</li>
+      <li><strong>Victor Hugo — Chrám Matky Božej v Paríži:</strong> Quasimodo miluje cigánku Esmeraldu. Kňaz Frollo ju prenasleduje. Tragická láska v stredovekom Paríži.</li>
+      <li><strong>Romain Rolland — Peter a Lucia:</strong> krátka vojenská láska skončená smrťou oboch.</li>
+    </ul>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Obhajobná reč</h4>
+    <p><strong>Štýl:</strong> rečnícky. <strong>Postup:</strong> argumentačný.</p>
+    <ul>
+      <li>obhajca (advokát) obhajuje obvineného pred súdom</li>
+      <li>vyvrátenie obvinení argumentmi a dôkazmi</li>
+      <li>apel na rozum aj cit, rečnícke otázky, gradácia</li>
+      <li><strong>Štruktúra:</strong> oslovenie súdu → predstavenie klienta → vyvrátenie obvinení → poľahčujúce okolnosti → záver</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-8">
+  <div class="otazka-header"><span class="otazka-num">08</span>
+    <h2 class="otazka-title">Dedina v literatúre <em>· komerčný inzerát</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Kukučín — Keď báčik umrie · Tajovský — Maco Mlieč, Statky-zmätky · Timrava — Ťapákovci · Hečko — Červené víno · Chrobák — Drak sa vracia</h4>
+    <ul>
+      <li><strong>Martin Kukučín — Keď báčik z Chochoľova umrie:</strong> lakomý Aduš Olešin čaká na dedičstvo po strýkovi. Ironia a humor, kritika dedinského lakomstva a pokrytectva.</li>
+      <li><strong>Jozef Gregor Tajovský — Maco Mlieč:</strong> robotník Maco zomiera v biede po celoživotnej práci u bohatého sedliaka. Sociálna krivda, tragická poviedka.</li>
+      <li><strong>Jozef Gregor Tajovský — Statky-zmätky:</strong> Palčíkovci rozdajú majetok synovi Ďurkovi pred svadbou — po svadbe ich vyženie. Majetkový a generačný konflikt v dedine.</li>
+      <li><strong>Božena Slančíková-Timrava — Ťapákovci:</strong> rodina Ťapákovcov — lenivosť, pasivita, neschopnosť zmeniť osud. Starý Ťapák a synovia. Kritika dedinského zaostávania.</li>
+      <li><strong>František Hečko — Červené víno:</strong> sága vinohradníckej rodiny Habdžovcov. Tradícia, práca, láska, generačné konflikty na dedine.</li>
+      <li><strong>Dobroslav Chrobák — Drak sa vracia:</strong> dedina Krivány — symbol uzavretého spoločenstva, ktoré odmieta toho, kto sa líši.</li>
+    </ul>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Komerčný inzerát</h4>
+    <p><strong>Štýl:</strong> publicistický. <strong>Postup:</strong> informačný.</p>
+    <ul>
+      <li>platené oznámenie v médiách — predaj, kúpa, ponuka práce</li>
+      <li>výrazný titulok, expresívne slová, heslovité vety, cena, kontakt</li>
+    </ul>
+    <div class="priklad"><strong>PREDÁM</strong> rodinný dom, Námestovo, 120 m², záhrada. Cena: 140 000 €. Tel.: 0905 000 111.</div>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-9">
+  <div class="otazka-header"><span class="otazka-num">09</span>
+    <h2 class="otazka-title">Realizmus <em>· charakteristika</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Hviezdoslav — Hájnikova žena · Kukučín · Tajovský · Timrava · Tolstoj · Balzac</h4>
+    <ul>
+      <li><strong>Pavol Országh Hviezdoslav — Hájnikova žena:</strong> lyrickoepická skladba (15 spevov). Hanka Čajková zastrelí šľachtica Villányiho, ktorý ju napadol. Súd ju oslobodí. Realizmus v poézii, bohatý jazyk. <em>Krvavé sonety</em> — protest proti 1. sv. vojne.</li>
+      <li><strong>Martin Kukučín — Keď báčik z Chochoľova umrie:</strong> typ lakomca — humorná, ironická kritika.</li>
+      <li><strong>Jozef Gregor Tajovský — Maco Mlieč, Statky-zmätky:</strong> sociálna krivda, chudoba, majetkové konflikty.</li>
+      <li><strong>Božena Slančíková-Timrava — Ťapákovci:</strong> kritický realizmus — pasivita a zaostávanie dediny.</li>
+      <li><strong>Lev Nikolajevič Tolstoj — Anna Kareninová:</strong> psychologický realizmus. Anna, Vronský, Karenin, Levin, Kitty. Dvě roviny: tragická (Anna) a idylická (Levin).</li>
+      <li><strong>Honoré de Balzac — Otec Goriot:</strong> starý Goriot obetuje všetko dcéram Anastázii a Delfíne — tie ho zanedbajú. Mladý Rastignac spoznáva krutosť Paríža. Cyklus <em>Ľudská komédia</em>.</li>
+    </ul>
+    <div class="priklad"><strong>Realizmus — znaky:</strong> pravdivé zobrazenie skutočnosti, typ postavy, sociálne prostredie, objektívnosť, kritika spoločnosti.</div>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Charakteristika</h4>
+    <p><strong>Štýl:</strong> umelecký / náučný. <strong>Postup:</strong> opisný.</p>
+    <ul>
+      <li><strong>vonkajšia</strong> — výzor; <strong>vnútorná</strong> — povaha, vlastnosti</li>
+      <li><strong>priama</strong> — vlastnosti pomenované; <strong>nepriama</strong> — vyplývajú z konania</li>
+      <li>individuálna, skupinová, porovnávacia</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-10">
+  <div class="otazka-header"><span class="otazka-num">10</span>
+    <h2 class="otazka-title">Romantizmus <em>· petícia</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Chalupka — Mor ho! · Botto — Smrť Jánošíkova · Sládkovič — Marína · Kráľ — Zakliata panna · Hugo — Chrám Matky Božej</h4>
+    <ul>
+      <li><strong>Samo Chalupka — Mor ho!:</strong> vlastenecká báseň. Kmeň Slovákov bojuje s rímskym cisárom. Vodca odmietne poklonu: „Mor ho!" Všetci hrdinovia padnú — ale slobodní. Symbol hrdinskej obety za slobodu.</li>
+      <li><strong>Ján Botto — Smrť Jánošíkova:</strong> lyrickoepická skladba (9 spevov). Jánošík = symbol slovenského odboja voči útlaku. Väzba, súd, smrť. Víla Lúčina — alegória slovenského ľudu. Najvydarenejšie dielo štúrovcov.</li>
+      <li><strong>Andrej Sládkovič — Marína:</strong> 291 strof. Ľúbostná báseň splýva s láskou k vlasti.</li>
+      <li><strong>Janko Kráľ — Zakliata panna vo Váhu a divný Janko:</strong> baladická báseň. Vzbura, osamelý hrdina, ľudová fantastika.</li>
+      <li><strong>Victor Hugo — Chrám Matky Božej v Paríži:</strong> romantický román. Quasimodo (zvonár, hrbáč), Esmeralda (cigánka), Frollo (kňaz). Stredoveký Paríž. Krása a škaredosť, dobro a zlo.</li>
+    </ul>
+    <div class="priklad"><strong>Romantizmus — znaky:</strong> cit nad rozumom, individualizmus, vzbura, národ, príroda, ľudová slovesnosť, výnimočný hrdina.</div>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Petícia</h4>
+    <p><strong>Štýl:</strong> administratívny / publicistický. <strong>Postup:</strong> argumentačný.</p>
+    <ul>
+      <li>kolektívna písomná žiadosť adresovaná orgánu verejnej moci</li>
+      <li>právo zaručené Ústavou SR (čl. 27)</li>
+      <li><strong>Štruktúra:</strong> PETÍCIA za/proti… → adresát → odôvodnenie → požiadavka → petičný výbor → podpisy</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-11">
+  <div class="otazka-header"><span class="otazka-num">11</span>
+    <h2 class="otazka-title">Dráma <em>· monológ</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Antigona · Hamlet · Lakomec · Palárik · Tajovský · Stodola · Barč-Ivan · Bukovčan · Lasica-Satinský</h4>
+    <ul>
+      <li><strong>Sofokles — Antigona:</strong> tragédia. Konflikt božského a ľudského zákona.</li>
+      <li><strong>William Shakespeare — Hamlet:</strong> dánsky princ Hamlet. Otec zavraždený strýkom Klaudiom, ktorý si vzal matku Gertrúdu. Duch otca žiada pomstu. Hamlet váha. Ofelia (milá) sa utopí. V záverečnej scéne zahynú všetci. Monológ „Byť či nebyť..."</li>
+      <li><strong>Molière — Lakomec:</strong> klasicistická komédia charakterov.</li>
+      <li><strong>Ján Palárik — Dobrodružstvo pri obžinkoch:</strong> komédia. Zámeny identity, romantická zápletka, národné motívy.</li>
+      <li><strong>Jozef Gregor Tajovský — Statky-zmätky:</strong> realistická dráma.</li>
+      <li><strong>Ivan Stodola — Bačova žena:</strong> tragická dráma. Eva sa vydá po Mišovej zdanlivej smrti za Ondreja — Mišo sa vráti.</li>
+      <li><strong>Július Barč-Ivan — Matka:</strong> expresionistická dráma o materstve a obeti.</li>
+      <li><strong>Ivan Bukovčan — Kým kohút nezaspieva:</strong> psychologická dráma — hľadanie zradcu v pivnici.</li>
+      <li><strong>Milan Lasica – Július Satinský — Soirée:</strong> absurdná komédia, satirické dialógy, irónia.</li>
+    </ul>
+    <div class="priklad"><strong>Stavba drámy:</strong> expozícia → kolízia → kríza → peripetia → katastrofa/rozuzlenie.</div>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Monológ</h4>
+    <p><strong>Štýl:</strong> umelecký. <strong>Postup:</strong> rozprávací / úvahový.</p>
+    <ul>
+      <li>súvislá reč jednej osoby</li>
+      <li><strong>vnútorný</strong> — myšlienkový prúd (prúd vedomia)</li>
+      <li><strong>vonkajší</strong> — nahlas, typický pre drámu</li>
+      <li>odhaľuje psychiku, motívy, vnútorný svet postavy</li>
+    </ul>
+    <div class="priklad"><strong>Hamlet:</strong> „Byť či nebyť — to je otázka..." — najslávnejší dramatický monológ.</div>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-12">
+  <div class="otazka-header"><span class="otazka-num">12</span>
+    <h2 class="otazka-title">Orava v literárnych textoch <em>· diskusný príspevok</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Hviezdoslav · Kukučín · Chrobák · Figuli · Urban</h4>
+    <ul>
+      <li><strong>Pavol Országh Hviezdoslav</strong> (Vyšný Kubín, 1849–1921) — <em>Hájnikova žena</em>: oravská príroda je takmer ďalšou postavou. Zbierka <em>Krvavé sonety</em>. Národný básnik.</li>
+      <li><strong>Martin Kukučín</strong> (Jasenová, 1860–1928) — <em>Keď báčik z Chochoľova umrie</em>: oravský typ lakomca. Neskôr emigroval na Brač (Dom v stráni).</li>
+      <li><strong>Dobroslav Chrobák</strong> — <em>Drak sa vracia</em>: dedina Krivány — liptovsko-oravské prostredie. Uzavreté spoločenstvo hôr.</li>
+      <li><strong>Margita Figuli</strong> (Vyšný Kubín, 1909–1995) — <em>Tri gaštanové kone</em>: lyrizovaná próza, oravská príroda ako symbol.</li>
+      <li><strong>Milo Urban</strong> (Rabčice, 1904–1982) — <em>Živý bič</em>: oravská dedina Ráztoky (= Rabčice) — epicentrum tragédie počas vojny.</li>
+    </ul>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Diskusný príspevok</h4>
+    <p><strong>Štýl:</strong> rečnícky. <strong>Postup:</strong> argumentačný.</p>
+    <ul>
+      <li>krátky vstup do prebiehajúcej debaty</li>
+      <li>reaguje na predrečníka, rozvíja alebo vyvracia argumenty</li>
+      <li>jasná téza + 2–3 argumenty + záver</li>
+    </ul>
+    <div class="priklad">„Vážená pani predsedajúca, súhlasím s predrečníkom v tom, že... Avšak musím doplniť..."</div>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-13">
+  <div class="otazka-header"><span class="otazka-num">13</span>
+    <h2 class="otazka-title">Moderné prúdy v literatúre <em>· pracovný postup</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Krasko — Nox et solitudo · Smrek — Cválajúce dni · Dilong · Válek · Rúfus</h4>
+    <ul>
+      <li><strong>Ivan Krasko — Nox et solitudo (1909):</strong> prvá zbierka. Symbolizmus, impresionizmus. Básne: <em>Topole</em> (osamelé topole = osamelý básnik), <em>Vesper dominicae</em>. Samota, smútok, hriech, odcudzenie. Zakladateľ modernej slov. poézie.</li>
+      <li><strong>Ján Smrek — Cválajúce dni:</strong> poetizmus, vitalizmus — oslava života, mladosti, radosti, ženy. Zbierka plná energie a optimizmu.</li>
+      <li><strong>Rudolf Dilong</strong> (kat. moderna): mystické a náboženské motívy, forma a estetika verša.</li>
+      <li><strong>Miroslav Válek</strong> (vlastný výber, napr. <em>Dotyky, Príťažlivosť</em>): moderná poézia, každodennosť, erotika, strach zo zabudnutia.</li>
+      <li><strong>Milan Rúfus — Zvony:</strong> existenciálna lyrika. Viera, rodná zem, materstvo, smrť. Archaický jazyk, statický obraz sveta.</li>
+    </ul>
+    <div class="priklad"><strong>Topole (Krasko):</strong> Topole stoja samy na kopci = metafora osamelého básnika odcudzeného vlasti. Bez priameho pomenovania — všetko je v obraze = symbolizmus.</div>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Pracovný postup (návod)</h4>
+    <p><strong>Štýl:</strong> náučný. <strong>Postup:</strong> opisný.</p>
+    <ul>
+      <li>číslované kroky v logickom poradí</li>
+      <li>rozkazovací spôsob alebo neurčitok</li>
+      <li>zoznam pomôcok / surovín, presnosť, vecnosť</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-14">
+  <div class="otazka-header"><span class="otazka-num">14</span>
+    <h2 class="otazka-title">Lyrizovaná próza a motív návratu <em>· prednáška</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Chrobák — Drak sa vracia · Figuli — Tri gaštanové kone · Hronský — Jozef Mak</h4>
+    <ul>
+      <li><strong>Dobroslav Chrobák — Drak sa vracia:</strong> Martin Lepiš (Drak) sa vráti do dediny Krivány po rokoch. Dedina ho odmieta — vinia ho z nešťastia Evy Pelkovej. Šimon Jariabek. Drak odíde — nepochopený. <em>Motív návratu ako hľadanie identity a koreňov.</em> Baladickosť, lyrizmus, symbolika.</li>
+      <li><strong>Margita Figuli — Tri gaštanové kone:</strong> Peter miluje Magdalénu — tyranizuje ju Jozef Zápotočný. Peter sa vracia, zachráni Magdalénu. Tri kone = symbol cesty, slobody, lásky. Rozprávková symbolika, biblické motívy.</li>
+      <li><strong>Jozef Cíger Hronský — Jozef Mak:</strong> Mak sa vracia z vojny zlomený. „Človek-milión" — symbol trpiaceho ľudu. Ornamentálna próza (bohatý básnický jazyk).</li>
+    </ul>
+    <div class="priklad"><strong>Lyrizovaná próza — znaky:</strong> prienik lyriky do prózy, básnický jazyk, metafory, baladickosť, mystika, symbolika prírody, ľudová tradícia.</div>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Prednáška</h4>
+    <p><strong>Štýl:</strong> náučný. <strong>Postup:</strong> výkladový.</p>
+    <ul>
+      <li>monologický výklad odbornej témy pred publikom</li>
+      <li>úvod (téma) → jadro (výklad + príklady) → záver (zhrnutie)</li>
+      <li>odborné termíny, kontakt s publikom, vizuálne pomôcky</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-15">
+  <div class="otazka-header"><span class="otazka-num">15</span>
+    <h2 class="otazka-title">Moderná próza <em>· interview</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Salinger — Kto chytá v žite · Mňačko — Ako chutí moc · Dušek — Kufor na sny · Jaroš — Tisícročná včela</h4>
+    <ul>
+      <li><strong>Jerome David Salinger — Kto chytá v žite:</strong> Holden Caulfield — 1. osoba, hovorový jazyk, stream of consciousness. Nespoľahlivý rozprávač (tínedžer). Moderná prozaická technika.</li>
+      <li><strong>Ladislav Mňačko — Ako chutí moc:</strong> dokumentárny štýl, reportážne prvky, hovorová reč postáv. Obraz doby cez osud jednotlivca.</li>
+      <li><strong>Dušan Dušek — Kufor na sny:</strong> súčasná lyrizovaná próza. Poetický pohľad na každodennosť, detstvo, spomienky.</li>
+      <li><strong>Peter Jaroš — Tisícročná včela:</strong> generačná sága rodu Pichandovcov v Hybe (1887–1918). Samo Pichanda = patriarcha. Magický realizmus, mýtické prvky, slov. identita.</li>
+    </ul>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Interview (rozhovor)</h4>
+    <p><strong>Štýl:</strong> publicistický. <strong>Postup:</strong> dialogický.</p>
+    <ul>
+      <li>dialóg novinára s hosťom — otázky + odpovede</li>
+      <li>perex = predstavenie hosťa</li>
+      <li>otázky: krátke, otvorené, neprekárajú</li>
+      <li><strong>Štruktúra:</strong> titulok + perex → Q&A → záver</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-16">
+  <div class="otazka-header"><span class="otazka-num">16</span>
+    <h2 class="otazka-title">Ľudské bytie v literatúre <em>· agitácia</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Hronský — Jozef Mak · Rúfus — Zvony · Válek · Mňačko — Ako chutí moc</h4>
+    <ul>
+      <li><strong>Jozef Cíger Hronský — Jozef Mak:</strong> zmysel bytia cez utrpenie a vytrvalosť. „Jozef Mak — to je milión!" = symbol trpiaceho slovenského ľudu. Bytie ako nesenie bremena.</li>
+      <li><strong>Milan Rúfus — Zvony:</strong> otázky viery, zmyslu, mortality. „Zvony zvonia na smrť, ale aj na vzkriesenie." Existenciálna lyrika s kresťanskou vrstvou.</li>
+      <li><strong>Miroslav Válek</strong> (vlastný výber): bytie v každodennosti — strach zo zabudnutia, pominuteľnosť chvíle, hľadanie zmyslu v prítomnom okamihu.</li>
+      <li><strong>Ladislav Mňačko — Ako chutí moc:</strong> bytie ako morálna zodpovednosť. Čo robí s človekom moc? Foltýn stratil seba.</li>
+    </ul>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Agitácia</h4>
+    <p><strong>Štýl:</strong> rečnícky. <strong>Postup:</strong> presviedčací.</p>
+    <ul>
+      <li>cieľ: získať príjemcu pre myšlienku, kandidáta, akciu</li>
+      <li>emocionálny apel, jednoduché heslá, kontrasty (my × oni)</li>
+      <li><strong>Pozor:</strong> hranica medzi argumentáciou a manipuláciou</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-17">
+  <div class="otazka-header"><span class="otazka-num">17</span>
+    <h2 class="otazka-title">Netradičné postupy v literatúre <em>· recenzia</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Lasica-Satinský — Soirée · Bukovčan — Kým kohút nezaspieva · Dušek — Kufor na sny · Jaroš — Tisícročná včela</h4>
+    <ul>
+      <li><strong>Milan Lasica – Július Satinský — Soirée:</strong> absurdná komédia. Jazyk ako hra — dialógy odhaľujú prázdnosť konvencií. Irónia, paradox, humor ako netradičný nástroj kritiky.</li>
+      <li><strong>Ivan Bukovčan — Kým kohút nezaspieva:</strong> psychologická dráma. Netradičný postup: uzavretý priestor, obmedzený čas, gradujúce napätie — divadlo ako detektívka.</li>
+      <li><strong>Dušan Dušek — Kufor na sny:</strong> lyrizovaná próza s asociatívnou kompozíciou. Nelineárny postup, poetické obrazy namiesto deja.</li>
+      <li><strong>Peter Jaroš — Tisícročná včela:</strong> magický realizmus v slov. kontexte. Fantastické prvky splývajú s realitou, mýtické myslenie, cyklická kompozícia.</li>
+    </ul>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Recenzia</h4>
+    <p><strong>Štýl:</strong> publicistický / náučný. <strong>Postup:</strong> opisný + hodnotiaci.</p>
+    <ul>
+      <li><strong>informačná časť</strong> — autor, dielo, žáner, krátky obsah (bez prezradenia konca)</li>
+      <li><strong>hodnotiaca časť</strong> — klady, zápory, vlastný názor + argumenty</li>
+      <li>záver — odporúčanie čitateľovi</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-18">
+  <div class="otazka-header"><span class="otazka-num">18</span>
+    <h2 class="otazka-title">Rozprávač <em>· argumentácia</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Salinger · Remarque · Chrobák · Hronský</h4>
+    <ul>
+      <li><strong>1. osoba — Salinger (Kto chytá v žite):</strong> Holden rozpráva sám. Nespoľahlivý rozprávač — tínedžer so skresleným pohľadom. Hovorový jazyk, priamy kontakt s čitateľom.</li>
+      <li><strong>1. osoba — Remarque (Na záp. nič nového):</strong> Paul Bäumer. Priama skúsenosť s frontom — autenticita, sugestívnosť.</li>
+      <li><strong>Viacnásobný rozprávač — Chrobák (Drak sa vracia):</strong> príbeh sa skladá z pohľadov Evy, Šimona a Draka. Čitateľ sám hľadá pravdu — polyfónia.</li>
+      <li><strong>Vševediaci rozprávač — Hronský (Jozef Mak):</strong> rozprávač vie všetko o Makovi, vstupuje do jeho mysle.</li>
+      <li><strong>Rozprávač ≠ autor</strong> — rozprávač je fiktívna inštancia v texte.</li>
+    </ul>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Argumentácia</h4>
+    <p><strong>Štýl:</strong> publicistický / náučný. <strong>Postup:</strong> úvahový.</p>
+    <ul>
+      <li><strong>Štruktúra:</strong> téza → argumenty (min. 3) → protiargument + vyvrátenie → záver</li>
+      <li><strong>Druhy argumentov:</strong> logický (fakty), emocionálny (city), etický (hodnoty), autoritatívny (citát odborníka)</li>
+      <li><strong>Logické chyby:</strong> ad hominem, kruhový dôkaz, falošná dilema</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-19">
+  <div class="otazka-header"><span class="otazka-num">19</span>
+    <h2 class="otazka-title">Román <em>· článok</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Urban — Živý bič · Hronský — Jozef Mak · Jaroš — Tisícročná včela · Hečko — Červené víno · Mňačko — Ako chutí moc · Tolstoj · Balzac · Hugo</h4>
+    <ul>
+      <li><strong>Milo Urban — Živý bič:</strong> prvý slovenský veľký román. 2 časti: pred vojnou a počas vojny. Iliáš Durčo (trpiteľ) vs. Adam Hlavaj (búrlivák).</li>
+      <li><strong>Jozef Cíger Hronský — Jozef Mak:</strong> lyrizovaný román, ornamentálna próza.</li>
+      <li><strong>Peter Jaroš — Tisícročná včela:</strong> generačná sága, magický realizmus.</li>
+      <li><strong>František Hečko — Červené víno:</strong> rodinná sága Habdžovcov.</li>
+      <li><strong>Ladislav Mňačko — Ako chutí moc:</strong> spoločenský román s reportážnymi prvkami.</li>
+      <li><strong>Lev Nikolajevič Tolstoj — Anna Kareninová:</strong> psychologický, spoločenský román.</li>
+      <li><strong>Honoré de Balzac — Otec Goriot:</strong> spoločenský román (cyklus Ľudská komédia).</li>
+      <li><strong>Victor Hugo — Chrám Matky Božej v Paríži:</strong> historický román.</li>
+    </ul>
+    <div class="priklad"><strong>Druhy románu:</strong> spoločenský, psychologický, historický, generačný, vývinový (Bildungsroman), epištolárny.</div>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Článok</h4>
+    <p><strong>Štýl:</strong> publicistický. <strong>Postup:</strong> informačno-úvahový.</p>
+    <ul>
+      <li>titulok, perex, jadro, záver</li>
+      <li>princíp obrátenej pyramídy — najdôležitejšie hore</li>
+      <li>druhy: spravodajský, analytický, komentár, reportáž</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-20">
+  <div class="otazka-header"><span class="otazka-num">20</span>
+    <h2 class="otazka-title">Problém generácií v literatúre <em>· autocharakteristika</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Tajovský — Statky-zmätky · Kukučín — Keď báčik umrie · Salinger — Kto chytá v žite · Jaroš — Tisícročná včela</h4>
+    <ul>
+      <li><strong>Jozef Gregor Tajovský — Statky-zmätky:</strong> Palčíkovci rozdajú majetok synovi pred svadbou — ten ich po svadbe vyženie. Kto má právo na majetok a autoritu? Majetok = moc nad ľuďmi.</li>
+      <li><strong>Martin Kukučín — Keď báčik z Chochoľova umrie:</strong> Aduš čaká na dedičstvo — komický obraz medzigeneračného lakomstva.</li>
+      <li><strong>Jerome David Salinger — Kto chytá v žite:</strong> Holden odmieta falošný svet dospelých. Tínedžerský bunt — hľadanie autenticity medzi generáciami.</li>
+      <li><strong>Peter Jaroš — Tisícročná včela:</strong> generácie Pichandovcov — každá reaguje na dobu inak. Kontinuita aj zlom medzi generáciami.</li>
+    </ul>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Autocharakteristika</h4>
+    <p><strong>Štýl:</strong> umelecký / hovorový. <strong>Postup:</strong> opisný + úvahový.</p>
+    <ul>
+      <li>charakteristika seba samého v 1. osobe</li>
+      <li>vonkajší opis + vlastnosti + záujmy + hodnoty + ciele</li>
+      <li>úprimnosť, sebareflexia, silné aj slabé stránky</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-21">
+  <div class="otazka-header"><span class="otazka-num">21</span>
+    <h2 class="otazka-title">Slovenská poézia <em>· porovnávacia charakteristika</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Vývin: Gavlovič → Kollár → Chalupka → Sládkovič → Botto → Kráľ → Hviezdoslav → Krasko → Smrek → Dilong → Válek → Rúfus</h4>
+    <ul>
+      <li><strong>Gavlovič</strong> (18. stor.) — didaktická poézia, bernolákovčina</li>
+      <li><strong>Kollár</strong> — klasicizmus / preromantizmus, slovanská vzájomnosť</li>
+      <li><strong>Chalupka, Sládkovič, Botto, Kráľ</strong> — romantizmus (štúrovci)</li>
+      <li><strong>Hviezdoslav</strong> — realizmus, epická aj lyrická poézia, humanizmus</li>
+      <li><strong>Krasko</strong> — moderna, symbolizmus, samota (<em>Nox et solitudo</em>)</li>
+      <li><strong>Smrek</strong> — poetizmus, vitalizmus (<em>Cválajúce dni</em>)</li>
+      <li><strong>Dilong</strong> — katolícka moderna, náboženské motívy</li>
+      <li><strong>Válek</strong> — moderná poézia, každodennosť, strach</li>
+      <li><strong>Rúfus</strong> — existenciálna lyrika, viera, rodná zem (<em>Zvony</em>)</li>
+    </ul>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Porovnávacia charakteristika</h4>
+    <p><strong>Štýl:</strong> náučný / umelecký. <strong>Postup:</strong> opisný + úvahový.</p>
+    <ul>
+      <li>porovnanie 2 postáv / autorov / javov</li>
+      <li>spoločné znaky → rozdielne znaky → záver</li>
+      <li><strong>paralelný spôsob:</strong> najprv A celé, potom B celé</li>
+      <li><strong>krížový spôsob:</strong> vlastnosť 1 (A vs B), vlastnosť 2 (A vs B)</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-22">
+  <div class="otazka-header"><span class="otazka-num">22</span>
+    <h2 class="otazka-title">Moderná dráma <em>· transformácia textu</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Lasica-Satinský — Soirée · Bukovčan — Kým kohút nezaspieva · Barč-Ivan — Matka · Stodola — Bačova žena</h4>
+    <ul>
+      <li><strong>Milan Lasica – Július Satinský — Soirée:</strong> absurdná komédia. Dialógy bez logiky odhaľujú absurditu konvencií. Satira na spoločnosť cez humor a nonsens.</li>
+      <li><strong>Ivan Bukovčan — Kým kohút nezaspieva:</strong> psychologická dráma zo SNP. Uzavretý priestor, hľadanie zradcu. Gradujúce napätie, morálne dilemy.</li>
+      <li><strong>Július Barč-Ivan — Matka:</strong> expresionistická dráma. Matka = symbol obety a lásky. Sociálna a existenciálna tematika.</li>
+      <li><strong>Ivan Stodola — Bačova žena:</strong> tragická dráma. Eva sa po Mišovom zdanlivom odchode vydá za Ondreja — Mišo sa vráti. Dilema medzi povinnosťou a láskou.</li>
+    </ul>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Transformácia textu (próza → dráma)</h4>
+    <p>Premena rozprávacieho textu na dramatický.</p>
+    <ul>
+      <li>priama reč → replika (MENO: text)</li>
+      <li>opis a rozprávanie → scénická poznámka <em>(kurzívou v zátvorke)</em></li>
+      <li>zoznam postáv, členenie na dejstvá/výstupy</li>
+    </ul>
+    <div class="priklad"><strong>Próza:</strong> „Pomaly otvoril dvere. ‚Si tu?' spýtal sa."<br>
+<strong>Dráma:</strong> <em>(Pomaly otvára dvere.)</em><br>JÁN: Si tu?</div>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-23">
+  <div class="otazka-header"><span class="otazka-num">23</span>
+    <h2 class="otazka-title">Literárna postava <em>· úvaha</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Postavy z povinnej literatúry</h4>
+    <ul>
+      <li><strong>Hanka Čajková</strong> (Hviezdoslav — Hájnikova žena): dynamická, bojuje za česť</li>
+      <li><strong>Jozef Mak</strong> (Hronský): statický, trpiteľský typ — „milión"</li>
+      <li><strong>Martin Lepiš — Drak</strong> (Chrobák): outsider, nepochopený</li>
+      <li><strong>Holden Caulfield</strong> (Salinger): nespoľahlivý rozprávač, dynamický</li>
+      <li><strong>Hamlet</strong> (Shakespeare): typ váhavca, dynamický — premena cez monológy</li>
+      <li><strong>Harpagon</strong> (Molière): statický typ lakomca</li>
+      <li><strong>Anna Kareninová</strong> (Tolstoj): dynamická, tragická</li>
+      <li><strong>Quasimodo</strong> (Hugo): romantický typ outsidera, dobrý napriek škaredosti</li>
+      <li><strong>Frank Foltýn</strong> (Mňačko): dynamický — morálny pád</li>
+    </ul>
+    <div class="priklad"><strong>Typy postáv:</strong> kladná × záporná; statická × dynamická; typ × individuum; hlavná × vedľajšia × epizódna.</div>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Úvaha</h4>
+    <p><strong>Štýl:</strong> umelecký / publicistický. <strong>Postup:</strong> úvahový.</p>
+    <ul>
+      <li>subjektívny rozbor problému, hľadanie odpovedí</li>
+      <li>rečnícke otázky, citáty, 1. osoba, otvorený koniec</li>
+      <li><strong>Štruktúra:</strong> nastolenie problému → rozbor → stanovisko + výzva</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-24">
+  <div class="otazka-header"><span class="otazka-num">24</span>
+    <h2 class="otazka-title">Priateľstvo v literatúre <em>· inzerát</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Remarque — Na záp. nič nového · Jaroš — Tisícročná včela · Dušek — Kufor na sny</h4>
+    <ul>
+      <li><strong>Erich Maria Remarque — Na západe nič nového:</strong> priateľstvo vojakov Baümera, Kemmericha, Katczynskyho (Kat) a ďalších. Vojna ničí priateľstvá jedno po druhom. Kat = otcovská postava, jeho smrť zničí Paulov svet.</li>
+      <li><strong>Peter Jaroš — Tisícročná včela:</strong> priateľstvá v rámci rodovej sply — solidarita ako hodnota celej komunity Pichandovcov.</li>
+      <li><strong>Dušan Dušek — Kufor na sny:</strong> priateľstvo a spolupatričnosť v každodenných vzťahoch, poetický pohľad.</li>
+    </ul>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Inzerát</h4>
+    <p><strong>Štýl:</strong> publicistický. <strong>Postup:</strong> informačný.</p>
+    <ul>
+      <li>krátke platené oznámenie — predaj, kúpa, práca, zoznámenie</li>
+      <li>heslovité vety, skratky, cena, kontakt</li>
+    </ul>
+    <div class="priklad"><strong>HĽADÁM</strong> spolubývajúceho/-ú, Žilina, 2-izb. byt, od júna. Nájom 350 €. Tel.: 0910 222 333.</div>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-25">
+  <div class="otazka-header"><span class="otazka-num">25</span>
+    <h2 class="otazka-title">Zápletka zmeny, zámeny, premeny <em>· referát</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Palárik — Dobrodružstvo pri obžinkoch · Shakespeare — Hamlet · Hronský — Jozef Mak · Mňačko — Ako chutí moc</h4>
+    <ul>
+      <li><strong>Ján Palárik — Dobrodružstvo pri obžinkoch:</strong> zámena identít riadi celý dej. Zámenami sa odhalí pravý charakter postáv a vyriešia konflikty. Romantická komédia.</li>
+      <li><strong>William Shakespeare — Hamlet:</strong> premena Hamleta — z nečinného smútku k rozhodnutiu konať. Hamlet „predstiera šialenstvo" — ďalšia zámena identity.</li>
+      <li><strong>Jozef Cíger Hronský — Jozef Mak:</strong> vojna prerobí Maka — z tichého sedliaka na otrasteného vojaka a späť. Zmena životných okolností (nie charakteru).</li>
+      <li><strong>Ladislav Mňačko — Ako chutí moc:</strong> premena Foltýna — z morálneho novinára na skorumpovaného funkcionára. Zmena charakteru vplyvom moci.</li>
+    </ul>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Referát</h4>
+    <p><strong>Štýl:</strong> náučný / rečnícky. <strong>Postup:</strong> výkladový.</p>
+    <ul>
+      <li>kratší odborný príspevok, príprava zo zdrojov</li>
+      <li>úvod (téma, cieľ) → jadro (výklad) → záver → pramene</li>
+      <li>vlastný pohľad, nie len prerozprávanie</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-26">
+  <div class="otazka-header"><span class="otazka-num">26</span>
+    <h2 class="otazka-title">Láska ako konflikt <em>· rozprávanie</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Shakespeare — Hamlet · Tolstoj — Anna Kareninová · Hviezdoslav — Hájnikova žena · Jašík — Námestie sv. Alžbety · Rolland — Peter a Lucia · Sládkovič — Marína · Hugo — Chrám Matky Božej</h4>
+    <ul>
+      <li><strong>William Shakespeare — Hamlet:</strong> Hamlet a Ofelia — ich láska zničená Hamletovým poslaním pomsty. Ofelia sa utopí. Konflikt: láska vs. povinnosť.</li>
+      <li><strong>Lev Nikolajevič Tolstoj — Anna Kareninová:</strong> láska naráža na spoločenské normy — Anna a Vronský. Spoločnosť ich odsudzuje.</li>
+      <li><strong>Pavol Országh Hviezdoslav — Hájnikova žena:</strong> Hanka a Michal — ich láska ohrozená zvonka (Villányi). Konflikt: láska vs. spoločenský útlak.</li>
+      <li><strong>Rudolf Jašík — Námestie svätej Alžbety:</strong> láska naráža na rasové zákony. Igor a Eva — tragický koniec.</li>
+      <li><strong>Romain Rolland — Peter a Lucia:</strong> láska naráža na vojnu. Tragický koniec.</li>
+      <li><strong>Andrej Sládkovič — Marína:</strong> láska naráža na rodičovský zákaz.</li>
+      <li><strong>Victor Hugo — Chrám Matky Božej:</strong> Quasimodo a Esmeralda — láska outsidera, neoplátená, tragická.</li>
+    </ul>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Rozprávanie</h4>
+    <p><strong>Štýl:</strong> umelecký. <strong>Postup:</strong> rozprávací.</p>
+    <ul>
+      <li>časová postupnosť deja, postavy, prostredie, napätie</li>
+      <li><strong>Stavba:</strong> expozícia → kolízia → kríza → peripetia → rozuzlenie</li>
+      <li>priama reč, dialóg, opis, vnútorný monológ</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-27">
+  <div class="otazka-header"><span class="otazka-num">27</span>
+    <h2 class="otazka-title">Humor v literatúre <em>· odborná práca</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Molière — Lakomec · Kukučín — Keď báčik umrie · Palárik — Dobrodružstvo pri obžinkoch · Lasica-Satinský — Soirée</h4>
+    <ul>
+      <li><strong>Molière — Lakomec:</strong> <em>komika charakteru</em> — lakomstvo Harpagona vytvára komické situácie (stratená truhla, zámenky). <em>Komika situácie</em> — syn súperí s otcom o tú istú ženu.</li>
+      <li><strong>Martin Kukučín — Keď báčik z Chochoľova umrie:</strong> jemná irónia a humor. Aduš = komický typ čakateľa na dedičstvo.</li>
+      <li><strong>Ján Palárik — Dobrodružstvo pri obžinkoch:</strong> komika zámen, šťastné rozuzlenie, ľahký humor.</li>
+      <li><strong>Milan Lasica – Július Satinský — Soirée:</strong> absurdný humor, irónia, satirické dialógy — smiech odhaľuje prázdnosť spoločenských noriem.</li>
+    </ul>
+    <div class="priklad"><strong>Druhy komiky:</strong> humor (láskavý), satira (kritická), irónia (opačná výpoveď), sarkazmus (jedovatý), paródia (napodobenina), groteska (komika + tragika).</div>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Odborná práca (SOČ, seminárna)</h4>
+    <p><strong>Štýl:</strong> náučný. <strong>Postup:</strong> výkladový.</p>
+    <ul>
+      <li><strong>Štruktúra:</strong> titulný list → anotácia → obsah → úvod (cieľ, hypotéza) → teória → výskum → záver → bibliografia → prílohy</li>
+      <li>vecnosť, termíny, citácie podľa STN ISO 690</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-28">
+  <div class="otazka-header"><span class="otazka-num">28</span>
+    <h2 class="otazka-title">Kompozícia literárneho textu <em>· pracovná zmluva</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Hviezdoslav — Hájnikova žena · Urban — Živý bič · Chrobák — Drak sa vracia · Hronský — Jozef Mak</h4>
+    <ul>
+      <li><strong>Hviezdoslav — Hájnikova žena:</strong> 15 spevov — vonkajšia kompozícia. Chronologická + lyrickoepická. Príroda = ďalší „hlas" textu.</li>
+      <li><strong>Milo Urban — Živý bič:</strong> 2 časti (pred vojnou / počas vojny). Paralelné príbehy Durča a Hlavaja — dve reakcie na útlak.</li>
+      <li><strong>Dobroslav Chrobák — Drak sa vracia:</strong> viacnásobný rozprávač — mozaika pohľadov. Čitateľ skladá pravdu sám.</li>
+      <li><strong>Jozef Cíger Hronský — Jozef Mak:</strong> chronologická kompozícia, prerušená flashbackmi (spomienky na Evu).</li>
+    </ul>
+    <div class="priklad"><strong>Druhy kompozície:</strong> chronologická · retrospektívna · in medias res · rámcová · paralelná · reťazová · cyklická.</div>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Pracovná zmluva</h4>
+    <p><strong>Štýl:</strong> administratívny. <strong>Postup:</strong> informačný. Riadi sa Zákonníkom práce SR.</p>
+    <ul>
+      <li><strong>Povinné náležitosti:</strong> zmluvné strany, druh práce, miesto výkonu, deň nástupu, mzdové podmienky, pracovný čas, výpovedná doba, dátum + podpisy</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-29">
+  <div class="otazka-header"><span class="otazka-num">29</span>
+    <h2 class="otazka-title">Dobro a zlo v literatúre <em>· jednoduchá správa</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Chalupka — Mor ho! · Botto — Smrť Jánošíkova · Sofokles — Antigona · Bukovčan — Kým kohút nezaspieva · Mňačko — Ako chutí moc · Hugo — Chrám Matky Božej</h4>
+    <ul>
+      <li><strong>Samo Chalupka — Mor ho!:</strong> tyrania (zlo) vs. sloboda (dobro). Hrdinská smrť za dobro.</li>
+      <li><strong>Ján Botto — Smrť Jánošíkova:</strong> sociálna nespravodlivosť (zlo) vs. zbojnícka spravodlivosť (dobro pre chudobných).</li>
+      <li><strong>Sofokles — Antigona:</strong> Kreónov zákon (zlo z pýchy) vs. Antigonina morálna povinnosť (dobro). Hranica medzi nimi nie je vždy jasná.</li>
+      <li><strong>Ivan Bukovčan — Kým kohút nezaspieva:</strong> zrada (zlo) vs. solidarita a odvaha (dobro). Zlo prichádza zvnútra skupiny.</li>
+      <li><strong>Ladislav Mňačko — Ako chutí moc:</strong> moc ako zlo. Foltýnova morálna korupcia — dobro sa postupne strácalo.</li>
+      <li><strong>Victor Hugo — Chrám Matky Božej:</strong> Quasimodo (škaredý, ale dobrý) vs. Frollo (pekný, ale zlý). Dobro a zlo nie sú na povrchu.</li>
+    </ul>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Jednoduchá správa</h4>
+    <p><strong>Štýl:</strong> publicistický. <strong>Postup:</strong> informačný.</p>
+    <ul>
+      <li>kto, čo, kedy, kde, ako, prečo — bez hodnotenia</li>
+      <li>princíp obrátenej pyramídy, minulý čas, 3. osoba</li>
+    </ul>
+  </div>
+</section>
+
+<section class="otazka" id="otazka-30">
+  <div class="otazka-header"><span class="otazka-num">30</span>
+    <h2 class="otazka-title">Epika <em>· bibliografický záznam</em></h2></div>
+  <div class="section">
+    <span class="section-label literatura">Literárna téma</span>
+    <h4>Hviezdoslav · Urban · Hronský · Figuli · Chrobák · Kukučín · Tajovský · Timrava · Jašík · Jaroš · Tolstoj · Balzac · Hugo · Remarque</h4>
+    <ul>
+      <li><strong>Veľká epika:</strong> Hviezdoslav: <em>Hájnikova žena</em> (veršovaný epos); Urban: <em>Živý bič</em>; Jaroš: <em>Tisícročná včela</em>; Tolstoj: <em>Anna Kareninová</em>; Balzac: <em>Otec Goriot</em>; Hugo: <em>Chrám Matky Božej</em></li>
+      <li><strong>Stredná epika (novela/poviedka):</strong> Kukučín: <em>Keď báčik z Chochoľova umrie</em>; Tajovský: <em>Maco Mlieč</em>; Timrava: <em>Ťapákovci</em>; Bednár: <em>Kolíska</em>; Hronský: <em>Jozef Mak</em>; Figuli: <em>Tri gaštanové kone</em>; Chrobák: <em>Drak sa vracia</em>; Remarque: <em>Na záp. nič nového</em></li>
+      <li><strong>Znaky epiky:</strong> dej, postavy, prostredie, rozprávač, kompozícia (5-dielna)</li>
+    </ul>
+  </div>
+  <div class="section">
+    <span class="section-label sloh">Slohový útvar</span>
+    <h4>Bibliografický záznam (norma STN ISO 690)</h4>
+    <ul>
+      <li><strong>Kniha:</strong> PRIEZVISKO, Meno. <em>Názov</em>. Vydanie. Miesto: Vydavateľstvo, rok. Počet strán. ISBN.</li>
+      <li><strong>Článok:</strong> PRIEZVISKO, Meno. Názov. <em>Časopis</em>, rok, roč. X, č. Y, s. Z. ISSN.</li>
+      <li><strong>Web:</strong> PRIEZVISKO, Meno. <em>Názov</em> [online]. [cit. dátum]. Dostupné na: &lt;URL&gt;.</li>
+    </ul>
+    <div class="priklad">HVIEZDOSLAV, Pavol Országh. <em>Hájnikova žena</em>. 5. vyd. Bratislava: Tatran, 2010. 192 s. ISBN 978-80-222-0612-3.</div>
+  </div>
+</section>
+
+</div><!-- /.content-wrap slovenčina -->
+
+<!-- ============================================================ -->
+<!-- RÝCHLY PREHĽAD -->
+<!-- ============================================================ -->
+
+<div class="section-banner" id="sk-prehlad">
+  <div class="label">Časť II</div>
+  <h2><strong>Rýchly</strong> prehľad</h2>
+  <p>30 zadaní zo slovenčiny v skrátenej karte — téma, slohový útvar, kľúčové diela</p>
+</div>
+
+<div class="content-wrap">
+<div class="prehled-grid">
+    <a class="prehled-card" href="#" onclick="goToDetail(1); return false;">
+      <div class="card-num">01</div>
+      <div class="card-body">
+        <div class="card-tema">Antická literatúra</div>
+        <div class="card-sloh">reklamný leták</div>
+        <div class="card-diela">Homér — Ilias, Odysea; Sofokles — Antigona, Kráľ Oidipus; Vergílius — Aeneis</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(2); return false;">
+      <div class="card-num">02</div>
+      <div class="card-body">
+        <div class="card-tema">Klasicizmus</div>
+        <div class="card-sloh">anketa</div>
+        <div class="card-diela">Molière — Lakomec; Ján Hollý — Svatopluk; Ján Kollár — Slávy dcéra</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(3); return false;">
+      <div class="card-num">03</div>
+      <div class="card-body">
+        <div class="card-tema">Biblia a literatúra</div>
+        <div class="card-sloh">sťažnosť</div>
+        <div class="card-diela">Genezis, Exodus, Žalmy, Pieseň piesní, Evanjeliá, Apokalypsa</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(4); return false;">
+      <div class="card-num">04</div>
+      <div class="card-body">
+        <div class="card-tema">Outsider</div>
+        <div class="card-sloh">umelecký opis</div>
+        <div class="card-diela">Albert Camus — Cudzinec; Franz Kafka — Premena; J. D. Salinger — Kto chytá v žite</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(5); return false;">
+      <div class="card-num">05</div>
+      <div class="card-body">
+        <div class="card-tema">Prvá svetová vojna</div>
+        <div class="card-sloh">noticka — správa</div>
+        <div class="card-diela">E. M. Remarque — Na západe nič nového; E. Hemingway — Zbohom zbraniam; J. Hašek — Švejk; Milo Urban — Živý bič</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(6); return false;">
+      <div class="card-num">06</div>
+      <div class="card-body">
+        <div class="card-tema">Druhá svetová vojna</div>
+        <div class="card-sloh">rečnícky prejav</div>
+        <div class="card-diela">Anna Franková — Denník; L. Mňačko — Smrť sa volá Engelchen; R. Jašík — Námestie sv. Alžbety</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(7); return false;">
+      <div class="card-num">07</div>
+      <div class="card-body">
+        <div class="card-tema">Láska v literatúre</div>
+        <div class="card-sloh">obhajobná reč</div>
+        <div class="card-diela">Shakespeare — Romeo a Júlia; Goethe — Werther; Sládkovič — Marína; Hviezdoslav — Hájnikova žena</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(8); return false;">
+      <div class="card-num">08</div>
+      <div class="card-body">
+        <div class="card-tema">Dedina v literatúre</div>
+        <div class="card-sloh">komerčný inzerát</div>
+        <div class="card-diela">M. Kukučín — Rysavá jalovica; J. G. Tajovský — Statky-zmätky; B. S. Timrava — Ťapákovci; D. Chrobák — Drak sa vracia</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(9); return false;">
+      <div class="card-num">09</div>
+      <div class="card-body">
+        <div class="card-tema">Realizmus</div>
+        <div class="card-sloh">charakteristika</div>
+        <div class="card-diela">Hviezdoslav — Hájnikova žena; M. Kukučín — Dom v stráni; Dostojevskij — Zločin a trest; Tolstoj — Anna Kareninová</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(10); return false;">
+      <div class="card-num">10</div>
+      <div class="card-body">
+        <div class="card-tema">Romantizmus</div>
+        <div class="card-sloh">petícia</div>
+        <div class="card-diela">S. Chalupka — Mor ho!; J. Botto — Smrť Jánošíkova; A. Sládkovič — Marína; Ľudovít Štúr — kodifikácia</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(11); return false;">
+      <div class="card-num">11</div>
+      <div class="card-body">
+        <div class="card-tema">Dráma</div>
+        <div class="card-sloh">monológ</div>
+        <div class="card-diela">J. Chalupka — Kocúrkovo; J. Palárik — Inkognito; I. Stodola — Jožko Púčik; P. Karvaš — Polnočná omša</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(12); return false;">
+      <div class="card-num">12</div>
+      <div class="card-body">
+        <div class="card-tema">Orava v literatúre</div>
+        <div class="card-sloh">diskusný príspevok</div>
+        <div class="card-diela">Hviezdoslav (Vyšný Kubín); Kukučín (Jasenová); Nádaši-Jégé (D. Kubín); Figuli; Urban (Rabčice)</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(13); return false;">
+      <div class="card-num">13</div>
+      <div class="card-body">
+        <div class="card-tema">Moderné prúdy</div>
+        <div class="card-sloh">pracovný postup</div>
+        <div class="card-diela">Ivan Krasko — Nox et solitudo; Novomeský — Svätý za dedinou; Rudolf Fábry — Uťaté ruky</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(14); return false;">
+      <div class="card-num">14</div>
+      <div class="card-body">
+        <div class="card-tema">Lyrizovaná próza a návrat</div>
+        <div class="card-sloh">prednáška</div>
+        <div class="card-diela">D. Chrobák — Drak sa vracia; M. Figuli — Tri gaštanové kone; J. C. Hronský — Jozef Mak</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(15); return false;">
+      <div class="card-num">15</div>
+      <div class="card-body">
+        <div class="card-tema">Moderná próza</div>
+        <div class="card-sloh">interview</div>
+        <div class="card-diela">Kafka — Premena, Proces; Márquez — Sto rokov samoty; Tatarka — Démon súhlasu; Pišťanek — Rivers of Babylon</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(16); return false;">
+      <div class="card-num">16</div>
+      <div class="card-body">
+        <div class="card-tema">Ľudské bytie</div>
+        <div class="card-sloh">agitácia</div>
+        <div class="card-diela">A. Camus — Mor; J.-P. Sartre — Múr; J. C. Hronský — Jozef Mak; Milan Rúfus — Až dozrieme</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(17); return false;">
+      <div class="card-num">17</div>
+      <div class="card-body">
+        <div class="card-tema">Netradičné postupy</div>
+        <div class="card-sloh">recenzia</div>
+        <div class="card-diela">Bulgakov — Majster a Margaréta; Beckett — Čakanie na Godota; Vilikovský — Večne je zelený</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(18); return false;">
+      <div class="card-num">18</div>
+      <div class="card-body">
+        <div class="card-tema">Rozprávač</div>
+        <div class="card-sloh">argumentácia</div>
+        <div class="card-diela">Salinger (1. osoba); Kafka (personálny); Remarque (1. osoba); Chrobák (viacnásobný)</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(19); return false;">
+      <div class="card-num">19</div>
+      <div class="card-body">
+        <div class="card-tema">Román</div>
+        <div class="card-sloh">článok</div>
+        <div class="card-diela">Urban — Živý bič; Kukučín — Dom v stráni; Jaroš — Tisícročná včela; Mňačko — Smrť sa volá Engelchen</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(20); return false;">
+      <div class="card-num">20</div>
+      <div class="card-body">
+        <div class="card-tema">Problém generácií</div>
+        <div class="card-sloh">autocharakteristika</div>
+        <div class="card-diela">Hviezdoslav — Ežo Vlkolinský; Tajovský — Statky-zmätky; Salinger — Kto chytá v žite; Turgenev — Otcovia a deti</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(21); return false;">
+      <div class="card-num">21</div>
+      <div class="card-body">
+        <div class="card-tema">Slovenská poézia</div>
+        <div class="card-sloh">porovnávacia charakteristika</div>
+        <div class="card-diela">Krasko, Novomeský, Fábry, Rúfus, Válek, Štrpka, Laučík — vývin od klasicizmu po súčasnosť</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(22); return false;">
+      <div class="card-num">22</div>
+      <div class="card-body">
+        <div class="card-tema">Moderná dráma</div>
+        <div class="card-sloh">transformácia textu</div>
+        <div class="card-diela">Brecht — Matka Guráž; Beckett — Čakanie na Godota; Karvaš — Polnočná omša; Záhradník — Sólo pre bicie hodiny</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(23); return false;">
+      <div class="card-num">23</div>
+      <div class="card-body">
+        <div class="card-tema">Literárna postava</div>
+        <div class="card-sloh">úvaha</div>
+        <div class="card-diela">Hanka Čajková, Jozef Mak, Drak, Raskoľnikov, Meursault, Holden Caulfield, Anna Kareninová</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(24); return false;">
+      <div class="card-num">24</div>
+      <div class="card-body">
+        <div class="card-tema">Priateľstvo v literatúre</div>
+        <div class="card-sloh">inzerát</div>
+        <div class="card-diela">Remarque — Traja kamaráti; Saint-Exupéry — Malý princ; Cervantes — Don Quijote; Mňačko — Engelchen</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(25); return false;">
+      <div class="card-num">25</div>
+      <div class="card-body">
+        <div class="card-tema">Zmeny, zámeny, premeny</div>
+        <div class="card-sloh">referát</div>
+        <div class="card-diela">Ovídius — Metamorfózy; Kafka — Premena; Palárik — Inkognito; Dostojevskij — Zločin a trest</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(26); return false;">
+      <div class="card-num">26</div>
+      <div class="card-body">
+        <div class="card-tema">Láska ako konflikt</div>
+        <div class="card-sloh">rozprávanie</div>
+        <div class="card-diela">Shakespeare — Romeo a Júlia; Goethe — Werther; Tolstoj — Anna Kareninová; Jašík — Námestie sv. Alžbety</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(27); return false;">
+      <div class="card-num">27</div>
+      <div class="card-body">
+        <div class="card-tema">Humor v literatúre</div>
+        <div class="card-sloh">odborná práca</div>
+        <div class="card-diela">Molière — Lakomec; Hašek — Švejk; Cervantes — Don Quijote; Chalupka — Kocúrkovo; Kukučín — Rysavá jalovica</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(28); return false;">
+      <div class="card-num">28</div>
+      <div class="card-body">
+        <div class="card-tema">Kompozícia literárneho textu</div>
+        <div class="card-sloh">pracovná zmluva</div>
+        <div class="card-diela">Mňačko (retrospektíva); Bulgakov (paralelná); Homér (in medias res); Márquez (cyklická)</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(29); return false;">
+      <div class="card-num">29</div>
+      <div class="card-body">
+        <div class="card-tema">Dobro a zlo</div>
+        <div class="card-sloh">jednoduchá správa</div>
+        <div class="card-diela">Bulgakov — Majster a Margaréta; Camus — Mor; Dostojevskij — Zločin a trest; Chalupka — Mor ho!</div>
+      </div>
+    </a>
+    <a class="prehled-card" href="#" onclick="goToDetail(30); return false;">
+      <div class="card-num">30</div>
+      <div class="card-body">
+        <div class="card-tema">Epika</div>
+        <div class="card-sloh">bibliografický záznam</div>
+        <div class="card-diela">Homér — Ilias; Urban — Živý bič; Kukučín — Dom v stráni; Figuli — Tri gaštanové kone; STN ISO 690</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLOHOVÉ ÚTVARY -->
+<!-- ============================================================ -->
+
+<div class="section-banner" id="sk-sloh">
+  <div class="label">Časť III</div>
+  <h2><strong>Slohové</strong> útvary</h2>
+  <p>Prehľad všetkých 30 slohových útvarov — štýl, kľúčové znaky</p>
+</div>
+
+<div class="content-wrap">
+<div class="sloh-grid">
+    <div class="sloh-card">
+      <div class="sc-name">Reklamný leták</div>
+      <div class="sc-styl">publicistický</div>
+      <div class="sc-znaky">Slogan, výzva, expresívne slová, obrázok, kontakt, cena. Persuazívna funkcia.</div>
+      <div class="sc-zadanie">zadanie 01</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Anketa</div>
+      <div class="sc-styl">publicistický</div>
+      <div class="sc-znaky">Tá istá otázka — rôzni respondenti. Cieľ: zistiť verejnú mienku. Meno, vek, povolanie.</div>
+      <div class="sc-zadanie">zadanie 02</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Sťažnosť</div>
+      <div class="sc-styl">administratívny</div>
+      <div class="sc-znaky">Vecnosť, opis problému, požiadavka o nápravu. Dátum, podpis, prílohy.</div>
+      <div class="sc-zadanie">zadanie 03</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Umelecký opis</div>
+      <div class="sc-styl">umelecký</div>
+      <div class="sc-znaky">Metafory, prirovnania, epitetá. Subjektívny pohľad, estetická funkcia.</div>
+      <div class="sc-zadanie">zadanie 04</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Noticka</div>
+      <div class="sc-styl">publicistický</div>
+      <div class="sc-znaky">3–6 viet: kto, čo, kedy, kde. Bez hodnotenia. Najkratší spravodajský útvar.</div>
+      <div class="sc-zadanie">zadanie 05</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Rečnícky prejav</div>
+      <div class="sc-styl">rečnícky</div>
+      <div class="sc-znaky">Oslovenie → úvod → jadro → záver. Rečnícke otázky, anafory, kontakt s publikom.</div>
+      <div class="sc-zadanie">zadanie 06</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Obhajobná reč</div>
+      <div class="sc-styl">rečnícky</div>
+      <div class="sc-znaky">Vyvracanie obvinení argumentmi. Apel na rozum aj cit. Logická stavba.</div>
+      <div class="sc-zadanie">zadanie 07</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Komerčný inzerát</div>
+      <div class="sc-styl">publicistický</div>
+      <div class="sc-znaky">Platené oznámenie. Heslovité vety, cena, kontakt. Predaj/kúpa/práca.</div>
+      <div class="sc-zadanie">zadanie 08</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Charakteristika</div>
+      <div class="sc-styl">umelecký / náučný</div>
+      <div class="sc-znaky">Vonkajšia, vnútorná, priama, nepriama. Individuálna, skupinová, porovnávacia.</div>
+      <div class="sc-zadanie">zadanie 09</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Petícia</div>
+      <div class="sc-styl">administratívny</div>
+      <div class="sc-znaky">Kolektívna žiadosť. Petičný výbor, odôvodnenie, podpisy. Ústava SR čl. 27.</div>
+      <div class="sc-zadanie">zadanie 10</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Monológ</div>
+      <div class="sc-styl">umelecký</div>
+      <div class="sc-znaky">Reč jednej osoby. Vnútorný (myšlienkový) alebo vonkajší. Odhaľuje psychiku.</div>
+      <div class="sc-zadanie">zadanie 11</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Diskusný príspevok</div>
+      <div class="sc-styl">rečnícky</div>
+      <div class="sc-znaky">Krátky vstup do debaty. Reaguje na predrečníka. Téza + 2–3 argumenty.</div>
+      <div class="sc-zadanie">zadanie 12</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Pracovný postup</div>
+      <div class="sc-styl">náučný</div>
+      <div class="sc-znaky">Číslované kroky v poradí. Rozkazovací spôsob. Pomôcky + výsledok.</div>
+      <div class="sc-zadanie">zadanie 13</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Prednáška</div>
+      <div class="sc-styl">náučný</div>
+      <div class="sc-znaky">Monologický výklad pred publikom. Úvod → jadro → záver. Termíny, objektívnosť.</div>
+      <div class="sc-zadanie">zadanie 14</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Interview</div>
+      <div class="sc-styl">publicistický</div>
+      <div class="sc-znaky">Dialóg novinára s hosťom. Otvorené otázky. Perex + striedanie Q&A.</div>
+      <div class="sc-zadanie">zadanie 15</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Agitácia</div>
+      <div class="sc-styl">rečnícky</div>
+      <div class="sc-znaky">Získať príjemcu pre myšlienku. Emocionálny apel, heslá, kontrasty (my × oni).</div>
+      <div class="sc-zadanie">zadanie 16</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Recenzia</div>
+      <div class="sc-styl">publicistický / náučný</div>
+      <div class="sc-znaky">Informačná + hodnotiaca časť. Klady, zápory, odporúčanie. Bez prezradenia konca.</div>
+      <div class="sc-zadanie">zadanie 17</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Argumentácia</div>
+      <div class="sc-styl">publicistický</div>
+      <div class="sc-znaky">Téza → argumenty (min. 3) → protiargument → záver. Logický, emocionálny, etický, autoritatívny.</div>
+      <div class="sc-zadanie">zadanie 18</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Článok</div>
+      <div class="sc-styl">publicistický</div>
+      <div class="sc-znaky">Titulok, perex, jadro, záver. Obrátená pyramída. Spravodajský, analytický, komentár.</div>
+      <div class="sc-zadanie">zadanie 19</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Autocharakteristika</div>
+      <div class="sc-styl">umelecký / hovorový</div>
+      <div class="sc-znaky">1. osoba. Vonkajší opis + vlastnosti + záujmy + hodnoty. Sebareflexia.</div>
+      <div class="sc-zadanie">zadanie 20</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Porovn. charakteristika</div>
+      <div class="sc-styl">umelecký / náučný</div>
+      <div class="sc-znaky">2 postavy/javy. Spoločné + rozdielne. Paralelný alebo krížový spôsob.</div>
+      <div class="sc-zadanie">zadanie 21</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Transformácia textu</div>
+      <div class="sc-styl">—</div>
+      <div class="sc-znaky">Próza → dráma. Priama reč = replika. Opis = scénická poznámka (kurzíva).</div>
+      <div class="sc-zadanie">zadanie 22</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Úvaha</div>
+      <div class="sc-styl">umelecký</div>
+      <div class="sc-znaky">Subjektívny rozbor problému. Rečnícke otázky, 1. osoba. Otvorený koniec.</div>
+      <div class="sc-zadanie">zadanie 23</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Inzerát</div>
+      <div class="sc-styl">publicistický</div>
+      <div class="sc-znaky">Krátke platené oznámenie. Heslovité, skratky, kontakt. Predaj / práca / zoznámenie.</div>
+      <div class="sc-zadanie">zadanie 24</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Referát</div>
+      <div class="sc-styl">náučný / rečnícky</div>
+      <div class="sc-znaky">Kratší odborný príspevok. Štúdium zdrojov. Úvod → jadro → záver → pramene.</div>
+      <div class="sc-zadanie">zadanie 25</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Rozprávanie</div>
+      <div class="sc-styl">umelecký</div>
+      <div class="sc-znaky">Časová postupnosť. Postavy, dej, prostredie. Expozícia → kolízia → kríza → rozuzlenie.</div>
+      <div class="sc-zadanie">zadanie 26</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Odborná práca</div>
+      <div class="sc-styl">náučný</div>
+      <div class="sc-znaky">SOČ / seminárna. Titulný list, abstrakt, obsah, teoretická + praktická časť, záver, bibliografia.</div>
+      <div class="sc-zadanie">zadanie 27</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Pracovná zmluva</div>
+      <div class="sc-styl">administratívny</div>
+      <div class="sc-znaky">Zákonník práce SR. Druh práce, miesto, nástup, mzda, pracovný čas, dátum, podpisy.</div>
+      <div class="sc-zadanie">zadanie 28</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Jednoduchá správa</div>
+      <div class="sc-styl">publicistický</div>
+      <div class="sc-znaky">Kto, čo, kedy, kde, ako, prečo. Obrátená pyramída. Minulý čas, 3. osoba.</div>
+      <div class="sc-zadanie">zadanie 29</div>
+    </div>
+    <div class="sloh-card">
+      <div class="sc-name">Bibliografický záznam</div>
+      <div class="sc-styl">náučný</div>
+      <div class="sc-znaky">STN ISO 690. PRIEZVISKO, Meno. Názov. Vydanie. Miesto: Vydavateľstvo, rok. ISBN.</div>
+      <div class="sc-zadanie">zadanie 30</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- MATEMATIKA -->
+<!-- ============================================================ -->
+
+
+
+<a href="#" id="fab" title="Späť hore">↑</a>
+
+<footer>
+  Maturitné poznámky · slovenský jazyk a literatúra · 30 zadaní
+</footer>
+
+<script>
+  // FAB - späť hore
+  const fab = document.getElementById("fab");
+  window.addEventListener("scroll", () => {
+    fab.classList.toggle("visible", window.scrollY > 300);
+  }, { passive: true });
+  fab.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+
+  // Progress bar
+  const progressBar = document.getElementById('progress');
+  window.addEventListener('scroll', () => {
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrolled = (window.scrollY / docHeight) * 100;
+    progressBar.style.width = Math.min(scrolled, 100) + '%';
+  }, { passive: true });
+
+  // Vyhľadávanie
+  const searchInput = document.getElementById('search');
+  const searchEmpty = document.getElementById('search-empty');
+  const otazky = document.querySelectorAll('.otazka');
+  const indexLinks = document.querySelectorAll('.quick-index li');
+
+  function normalize(s) {
+    return s.toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
+  }
+
+  searchInput.addEventListener('input', (e) => {
+    const query = normalize(e.target.value.trim());
+    let visible = 0;
+
+    if (query === '') {
+      otazky.forEach(o => o.classList.remove('hidden'));
+      indexLinks.forEach(l => l.classList.remove('hidden'));
+      searchEmpty.classList.remove('visible');
+      return;
+    }
+
+    otazky.forEach(o => {
+      const text = normalize(o.textContent);
+      if (text.includes(query)) {
+        o.classList.remove('hidden');
+        visible++;
+      } else {
+        o.classList.add('hidden');
+      }
+    });
+
+    indexLinks.forEach(l => {
+      const text = normalize(l.textContent);
+      if (text.includes(query)) {
+        l.classList.remove('hidden');
+      } else {
+        l.classList.add('hidden');
+      }
+    });
+
+    searchEmpty.classList.toggle('visible', visible === 0);
+  });
+
+  // Klávesová skratka — Ctrl/Cmd + K aktivuje vyhľadávanie
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      searchInput.focus();
+      searchInput.select();
+    }
+    if (e.key === 'Escape' && document.activeElement === searchInput) {
+      searchInput.value = '';
+      searchInput.dispatchEvent(new Event('input'));
+      searchInput.blur();
+    }
+  });
+</script>
+
+</body>
+</html>
