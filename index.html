@@ -596,49 +596,11 @@ footer {
 }
 
 
-/* ZÁLOŽKY */
-.bookmark-btn {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.3rem;
-  color: var(--ink-fade);
-  transition: color 0.2s, transform 0.2s;
-  padding: 4px;
-  line-height: 1;
-  z-index: 2;
-}
-.bookmark-btn:hover { color: var(--accent); transform: scale(1.2); }
-.bookmark-btn.active { color: #f5c842; }
-.otazka { position: relative; }
 
-.bookmark-filter-btn {
-  font-family: "DM Mono", monospace;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  background: var(--highlight);
-  border: 1px solid var(--rule);
-  color: var(--ink-soft);
-  border-radius: 4px;
-  padding: 6px 14px;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
-}
-.bookmark-filter-btn:hover { border-color: var(--accent); color: var(--ink); }
-.bookmark-filter-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
-.bookmark-filter-wrap {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  justify-content: center;
-  padding: 10px 24px 4px;
-  flex-wrap: wrap;
-}
-.bookmark-count { font-family: "DM Mono", monospace; font-size: 11px; color: var(--ink-fade); }
+
+
+
+
 
 /* MOBILE VYLEPŠENIA */
 @media (max-width: 600px) {
@@ -667,7 +629,7 @@ footer {
   .sc-name { font-size: 0.95rem; }
   .sc-znaky { font-size: 0.82rem; }
   .search-input { font-size: 0.95rem; padding: 10px 14px; }
-  .bookmark-btn { font-size: 1.1rem; top: 12px; right: 10px; }
+
   #fab { width: 44px; height: 44px; font-size: 1rem; bottom: 16px; right: 16px; }
   .section-banner { padding: 28px 20px 24px; }
   .section-banner h2 { font-size: 1.6rem; }
@@ -705,10 +667,10 @@ footer {
   <a href="#sk-prehlad" class="sk">Rýchly prehľad</a>
   <a href="#sk-sloh" class="sk">Slohové útvary</a>
   </nav>
-<div class="bookmark-filter-wrap">
-  <button class="bookmark-filter-btn" id="btn-all">Všetky témy</button>
-  <button class="bookmark-filter-btn" id="btn-bookmarked">⭐ Záložky</button>
-  <span class="bookmark-count" id="bookmark-count"></span>
+
+<div class="search-wrap" style="display:none;">
+  <input class="search-input" id="search" type="search" placeholder="Hľadať… (Ctrl+K)" autocomplete="off">
+  <div class="search-empty" id="search-empty">Nič sa nenašlo.</div>
 </div>
 
 <div class="section-banner" id="sk-uvod">
@@ -841,9 +803,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-1">
-  <button class="bookmark-btn" data-id="1" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">01</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">01</span>
     <h2 class="otazka-title">Antická literatúra <em>· reklamný leták</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Antická literatúra, motívy antickej literatúry, Renesancia.</strong> Pomenujte motívy antickej literatúry a doložte ich na dielach z antiky a renesancie (mytológia, frazeologizmy, Hamlet, Sonety pre Lauru, Antigona).</p>
@@ -888,9 +851,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-2">
-  <button class="bookmark-btn" data-id="2" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">02</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">02</span>
     <h2 class="otazka-title">Klasicizmus <em>· anketa</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Začiatky budovania národných literatúr v období klasicizmu.</strong> Poukázať na zvláštnosti klasicistickej a osvieteneckej literatúry. Na dvojverší vysvetliť princípy časomerného verša. (Hollý, Kollár, Moliére, Bernolák)</p>
@@ -939,9 +903,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-3">
-  <button class="bookmark-btn" data-id="3" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">03</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">03</span>
     <h2 class="otazka-title">Biblia a literatúra <em>· sťažnosť</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Vplyv Biblie na literatúru — motívy kresťanstva a Biblie.</strong> (Gavlovič, Hviezdoslav, Dilong, Rúfus, Bukovčan) — sylabotonická prozódia.</p>
@@ -979,9 +944,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-4">
-  <button class="bookmark-btn" data-id="4" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">04</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">04</span>
     <h2 class="otazka-title">Outsider <em>· umelecký opis</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Outsider v literatúre.</strong> Outsider = človek z okraja spoločnosti, vymykajúci sa z normálu vzhľadom alebo správaním. Najvýraznejší v romantizme.</p>
@@ -1028,9 +994,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-5">
-  <button class="bookmark-btn" data-id="5" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">05</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">05</span>
     <h2 class="otazka-title">Prvá svetová vojna v literatúre <em>· noticka — správa</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Obraz 1. sv. vojny v slovenskej a svetovej literatúre.</strong> Príčiny vzniku diel, porovnanie reakcií postáv. (Krvavé sonety, Živý bič, Peter a Lucia, Na západe nič nové)</p>
@@ -1069,9 +1036,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-6">
-  <button class="bookmark-btn" data-id="6" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">06</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">06</span>
     <h2 class="otazka-title">Druhá svetová vojna v literatúre <em>· rečnícky prejav</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Druhá svetová vojna vo svetovej a slovenskej literatúre.</strong> Príčiny zobrazovania, porovnanie konfliktu a reakcií postáv. (Kým kohút nezaspieva, Kolíska, Sklený vrch, Ako chutí moc, Sofiina voľba)</p>
@@ -1109,9 +1077,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-7">
-  <button class="bookmark-btn" data-id="7" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">07</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">07</span>
     <h2 class="otazka-title">Láska v literatúre <em>· obhajobná reč</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Láska v literatúre — rôzne podoby spracovania.</strong> Porovnaj odlišné podoby motívu lásky podľa druhu, žánru, obdobia a spracovania.</p>
@@ -1152,9 +1121,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-8">
-  <button class="bookmark-btn" data-id="8" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">08</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">08</span>
     <h2 class="otazka-title">Dedina v literatúre <em>· komerčný inzerát</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Dedina ako obraz umeleckého stvárnenia slovenskej spoločnosti.</strong> Opisný realizmus (Hviezdoslav, Kukučín) × kritický realizmus (Tajovský, Timrava).</p>
@@ -1191,9 +1161,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-9">
-  <button class="bookmark-btn" data-id="9" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">09</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">09</span>
     <h2 class="otazka-title">Realizmus <em>· charakteristika</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Charakterizujte realistickú umeleckú metódu.</strong> Odôvodnite súvislosti medzi spoločenskou situáciou a témami slovenského realizmu. (Otec Goriot, Anna Karenina, Keď báčik z Chochoľova umrie, Ťapákovci, Chameleón)</p>
@@ -1233,9 +1204,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-10">
-  <button class="bookmark-btn" data-id="10" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">10</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">10</span>
     <h2 class="otazka-title">Romantizmus <em>· petícia</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Romantizmus</strong> — definícia, prehľad autorov, porovnanie diel + sylabický veršový systém.</p>
@@ -1281,9 +1253,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-11">
-  <button class="bookmark-btn" data-id="11" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">11</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">11</span>
     <h2 class="otazka-title">Dráma <em>· monológ</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Dráma, antické motívy, motívy modernej drámy.</strong> Dráma je určená na javiskové stvárnenie — nemá rozprávača, dej prebieha cez konanie postáv a dialógy. Základné žánre: tragédia (hrdina hynie) a komédia (konflikt sa rieši humorne).</p>
@@ -1327,9 +1300,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-12">
-  <button class="bookmark-btn" data-id="12" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">12</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">12</span>
     <h2 class="otazka-title">Orava v literárnych textoch <em>· diskusný príspevok</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Literatúra Oravy — Orava ako hlavná inšpirácia.</strong> Oravskí autori zachytili dušu oravského človeka, jeho ťažký život v drsnej krajine, temperament i krásu prírody. Typické témy: zemianstvo, 1. sv. vojna, alkoholizmus, chudoba, handicap.</p>
@@ -1363,9 +1337,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-13">
-  <button class="bookmark-btn" data-id="13" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">13</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">13</span>
     <h2 class="otazka-title">Moderné prúdy v literatúre <em>· pracovný postup</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Vplyv moderných prúdov na vývoj slovenskej poézie.</strong> Porovnajte odlišné postoje básnikov. Hlavné prúdy: symbolizmus, vitalizmus, neosymbolizmus, katolícka moderna, nadrealizmus.</p>
@@ -1414,9 +1389,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-14">
-  <button class="bookmark-btn" data-id="14" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">14</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">14</span>
     <h2 class="otazka-title">Lyrizovaná próza a motív návratu <em>· prednáška</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Lyrizácia textu, diela s motívom návratu.</strong> Po r. 1918 vznikajú tri typy lyrizovaných textov: ornamentálna próza (ozdobný jazyk), lyricky tvarovaná próza (vnútorný stav postavy) a próza naturizmu (rozprávkovo-mýtický princíp).</p>
@@ -1449,9 +1425,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-15">
-  <button class="bookmark-btn" data-id="15" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">15</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">15</span>
     <h2 class="otazka-title">Moderná próza <em>· interview</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Moderná epická próza v európskej literatúre.</strong> Smery: postmoderna, existencializmus, absurdná dráma, magický realizmus. Diela: Meno ruže, Sto rokov samoty, Čakanie na Godota.</p>
@@ -1494,9 +1471,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-16">
-  <button class="bookmark-btn" data-id="16" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">16</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">16</span>
     <h2 class="otazka-title">Ľudské bytie v literatúre <em>· agitácia</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Motív ľudského bytia</strong> — človek v hraničnej situácii, motív smrti, hľadanie si miesta. Spájané s existencializmom: hrdina sa rozhoduje slobodne, cíti sa osamelo, hľadá individuálnu slobodu.</p>
@@ -1540,9 +1518,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-17">
-  <button class="bookmark-btn" data-id="17" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">17</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">17</span>
     <h2 class="otazka-title">Netradičné postupy v literatúre <em>· recenzia</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Netradičné literárne postupy — postmoderna, prúd vedomia, absurdnosť, existencializmus.</strong> Autori 20. stor. experimentujú s formou, keď štandardné postupy nevedia zachytiť pocit osamelosti a nepochopenia doby.</p>
@@ -1588,9 +1567,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-18">
-  <button class="bookmark-btn" data-id="18" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">18</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">18</span>
     <h2 class="otazka-title">Rozprávač <em>· argumentácia</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Rozprávač v literárnych dielach.</strong> Rozprávač = osoba, ktorá rozpráva príbeh. Je to najšpecifickejšia kategória epickej literatúry. Spôsoby: ja-rozprávanie (ich-forma, 1. os.) a on-rozprávanie (er-forma, 3. os.).</p>
@@ -1624,9 +1604,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-19">
-  <button class="bookmark-btn" data-id="19" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">19</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">19</span>
     <h2 class="otazka-title">Román <em>· článok</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Román — pojem, druhy, interpretácia diel.</strong> Román = veľký epický žáner zobrazujúci široký okruh života v dlhšom časovom rozpätí. Využíva všetky tri postupy: lyrický, epický (dej) a dramatický (dialógy).</p>
@@ -1668,9 +1649,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-20">
-  <button class="bookmark-btn" data-id="20" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">20</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">20</span>
     <h2 class="otazka-title">Problém generácií v literatúre <em>· autocharakteristika</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Generačný problém v slovenskej a svetovej literatúre.</strong> Generačný problém = názorové nezhody medzi rodičmi a deťmi v otázkach životného štýlu, morálky a hodnôt. Najviac v realizme — nastavenie zrkadla spoločnosti.</p>
@@ -1713,9 +1695,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-21">
-  <button class="bookmark-btn" data-id="21" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">21</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">21</span>
     <h2 class="otazka-title">Slovenská poézia <em>· porovnávacia charakteristika</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Slovenská súčasná poézia po 2. sv. vojne.</strong> Básnikov delíme podľa obdobia, typu poézie a tematiky. Porovnaj odlišné postoje a spôsoby vyjadrovania.</p>
@@ -1754,9 +1737,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-22">
-  <button class="bookmark-btn" data-id="22" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">22</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">22</span>
     <h2 class="otazka-title">Moderná dráma <em>· transformácia textu</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Slovenská dráma a dramatické umenie.</strong> Najvýznamnejší slovenskí dramatici, zaradenie do literárneho obdobia, analýza diela.</p>
@@ -1803,9 +1787,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-23">
-  <button class="bookmark-btn" data-id="23" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">23</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">23</span>
     <h2 class="otazka-title">Literárna postava <em>· úvaha</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Typológia literárnych postáv.</strong> Charakterizujte pásmo postáv a typy literárnych postáv na príkladoch z diel.</p>
@@ -1847,9 +1832,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-24">
-  <button class="bookmark-btn" data-id="24" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">24</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">24</span>
     <h2 class="otazka-title">Priateľstvo v literatúre <em>· inzerát</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Motív priateľstva v literatúre.</strong> Priateľstvo môže zachrániť hrdinu, prerásť v lásku alebo sa rozpadnúť pod tlakom moci. Prehľad diel: Hamlet, Otec Goriot, Na západe nič nové, Ako chutí moc, Sofiina voľba.</p>
@@ -1890,9 +1876,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-25">
-  <button class="bookmark-btn" data-id="25" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">25</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">25</span>
     <h2 class="otazka-title">Zápletka zmeny, zámeny, premeny <em>· referát</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Kompozičná zápletka s motívom zmeny, premeny a zámeny.</strong> (Premena, Ťapákovci, Drak sa vracia, Chameleón, Dobrodružstvo pri obžinkoch, Pygmalion)</p>
@@ -1939,9 +1926,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-26">
-  <button class="bookmark-btn" data-id="26" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">26</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">26</span>
     <h2 class="otazka-title">Láska ako konflikt <em>· rozprávanie</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Láska ako výber — motív ľúbostného trojuholníka.</strong> (Hájnikova žena, Dom v stráni, Tri gaštanové kone, Sklený vrch, Kolíska, Drak, Bačova žena)</p>
@@ -1987,9 +1975,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-27">
-  <button class="bookmark-btn" data-id="27" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">27</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">27</span>
     <h2 class="otazka-title">Humor v literatúre <em>· odborná práca</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Humor v literatúre — slovný, situačný humor, politická satira, paródia, absurdita.</strong> Prečo si autori na spracovanie vážnej témy volia nevážny pohľad? (Soirée, Beckett, Ťapákovci, Rysavá jalovica, Keď báčik z Chochoľova umrie)</p>
@@ -2037,9 +2026,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-28">
-  <button class="bookmark-btn" data-id="28" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">28</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">28</span>
     <h2 class="otazka-title">Kompozícia literárneho textu <em>· pracovná zmluva</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Kompozičné postupy v literatúre.</strong> Porovnaj diela s rôznym kompozičným zameraním. (Sklený vrch, Jozef Mak, Drak sa vracia, Živý bič, Tri gaštanové kone, Kolíska)</p>
@@ -2075,9 +2065,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-29">
-  <button class="bookmark-btn" data-id="29" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">29</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">29</span>
     <h2 class="otazka-title">Dobro a zlo v literatúre <em>· jednoduchá správa</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Zápas dobra a zla, motív tajomstva — sci-fi, fantasy, detektívna próza.</strong> Interpretácia 3 diel so žánrom tajomstva + klasické dielo. (Tri citróny, Psie dni, Sklený vrch, Pán prsteňov, Verne)</p>
@@ -2117,9 +2108,10 @@ footer {
 </section>
 
 <section class="otazka" id="otazka-30">
-  <button class="bookmark-btn" data-id="30" title="Pridať záložku" onclick="toggleBookmark(this)">☆</button>
-  <div class="otazka-header"><span class="otazka-num">30</span>
+  <div class="otazka-header">
+  <div class="otazka-header-text"><span class="otazka-num">30</span>
     <h2 class="otazka-title">Epika <em>· bibliografický záznam</em></h2></div>
+</div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
     <p class="tema-intro">Téma: <strong>Malá a stredná epika — znaky, rozdiely, prehľad autorov.</strong> (Keď báčik z Chochoľova umrie, Ťapákovci, Peter a Lucia, Chameleón)</p>
@@ -2166,6 +2158,8 @@ footer {
     </ul>
   </div>
 </section>
+
+</div><!-- /content-wrap -->
 
 <!-- ============================================================ -->
 <!-- RÝCHLY PREHĽAD -->
@@ -2624,6 +2618,12 @@ footer {
 </footer>
 
 <script>
+  // goToDetail — z rýchleho prehľadu na konkrétnu otázku
+  function goToDetail(num) {
+    const el = document.getElementById('otazka-' + num);
+    if (el) el.scrollIntoView({behavior: 'smooth', block: 'start'});
+  }
+
   // FAB - späť hore
   const fab = document.getElementById("fab");
   window.addEventListener("scroll", () => {
@@ -2700,59 +2700,6 @@ footer {
       searchInput.blur();
     }
   });
-
-  // === ZÁLOŽKY ===
-  const STORAGE_KEY = 'maturita_bookmarks';
-  function getBookmarks() {
-    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; }
-  }
-  function saveBookmarks(arr) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
-  }
-  function updateBookmarkCount() {
-    const n = getBookmarks().length;
-    document.getElementById('bookmark-count').textContent = n > 0 ? n + ' uložených' : '';
-  }
-  function renderBookmarks() {
-    const saved = getBookmarks();
-    document.querySelectorAll('.bookmark-btn').forEach(btn => {
-      const id = btn.dataset.id;
-      btn.textContent = saved.includes(id) ? '★' : '☆';
-      btn.classList.toggle('active', saved.includes(id));
-    });
-    updateBookmarkCount();
-  }
-  function toggleBookmark(btn) {
-    const id = btn.dataset.id;
-    let saved = getBookmarks();
-    if (saved.includes(id)) {
-      saved = saved.filter(x => x !== id);
-    } else {
-      saved.push(id);
-    }
-    saveBookmarks(saved);
-    renderBookmarks();
-    if (showingBookmarks) filterBookmarks(true);
-  }
-  let showingBookmarks = false;
-  function filterBookmarks(onlyBookmarked) {
-    showingBookmarks = onlyBookmarked;
-    const saved = getBookmarks();
-    document.querySelectorAll('.otazka').forEach(o => {
-      const id = o.id.replace('otazka-', '');
-      if (onlyBookmarked) {
-        o.classList.toggle('hidden', !saved.includes(id));
-      } else {
-        o.classList.remove('hidden');
-      }
-    });
-    document.getElementById('btn-all').classList.toggle('active', !onlyBookmarked);
-    document.getElementById('btn-bookmarked').classList.toggle('active', onlyBookmarked);
-  }
-  document.getElementById('btn-all').addEventListener('click', () => filterBookmarks(false));
-  document.getElementById('btn-bookmarked').addEventListener('click', () => filterBookmarks(true));
-  renderBookmarks();
-  document.getElementById('btn-all').classList.add('active');
 
 </script>
 
