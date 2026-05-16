@@ -205,8 +205,54 @@ body {
   padding-bottom: 16px;
   margin-bottom: 24px;
   display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+.otazka-header-text {
+  display: flex;
   align-items: baseline;
   gap: 20px;
+  flex: 1;
+}
+
+/* HVIEZDIČKA — ZÁLOŽKA */
+.star-btn {
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  color: var(--ink-fade);
+  font-size: 1.1rem;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color 0.4s ease, border-color 0.4s ease, background 0.4s ease, transform 0.3s ease;
+  font-family: 'DM Mono', monospace;
+  line-height: 1;
+  padding: 0;
+}
+.star-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.star-btn.starred {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: rgba(224,123,84,0.08);
+}
+.star-btn.starred:hover {
+  transform: scale(1.05);
+}
+.star-btn .star-icon {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.star-btn.starred .star-icon {
+  transform: rotate(72deg);
 }
 .otazka-num {
   font-family: 'DM Mono', monospace;
@@ -225,7 +271,9 @@ body {
 }
 @media (max-width: 700px) {
   .otazka-title { font-size: 1.4rem; }
-  .otazka-header { flex-direction: column; gap: 6px; }
+  .otazka-header { gap: 12px; }
+  .otazka-header-text { flex-direction: column; gap: 6px; }
+  .star-btn { width: 32px; height: 32px; font-size: 1rem; }
 }
 .otazka-title em {
   color: var(--accent);
@@ -481,8 +529,172 @@ dl.def dd { color: var(--ink-soft); }
 }
 #fab.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
 #fab:hover { background: var(--accent-soft); }
+
+/* Navigačné šípky vedľa FAB */
+#nav-buttons {
+  position: fixed;
+  bottom: 36px;
+  right: 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 999;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.25s, transform 0.25s;
+  pointer-events: none;
+}
+#nav-buttons.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.nav-btn {
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  color: var(--ink-soft);
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  font-family: "DM Mono", monospace;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+}
+.nav-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.nav-btn:disabled:hover {
+  color: var(--ink-soft);
+  border-color: var(--rule);
+}
+
+/* Zoznam označených otázok pri pravom okraji */
+#star-list {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 998;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 4px 2px;
+}
+#star-list::-webkit-scrollbar { width: 0; display: none; }
+.star-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 28px;
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+  text-decoration: none;
+  padding: 0;
+  white-space: nowrap;
+  opacity: 0;
+  animation: starFadeIn 0.4s ease forwards;
+}
+@keyframes starFadeIn {
+  from { opacity: 0; transform: translateX(8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.star-link:hover {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+.star-link .mini-star {
+  font-size: 0.65rem;
+  margin-right: 2px;
+  opacity: 0.85;
+}
+@media (max-width: 900px) {
+  #star-list { right: 10px; gap: 4px; }
+  .star-link { width: 32px; height: 24px; font-size: 0.68rem; }
+}
+
+/* Zoznam označených otázok pri scrollbare */
+#star-list {
+  position: fixed;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 998;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 4px;
+}
+#star-list::-webkit-scrollbar { width: 0; display: none; }
+.star-item {
+  width: 36px;
+  height: 36px;
+  background: var(--paper);
+  color: var(--ink-soft);
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  font-family: "DM Mono", monospace;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-decoration: none;
+  transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease, transform 0.3s ease;
+  position: relative;
+  line-height: 1;
+}
+.star-item:hover {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+  transform: scale(1.08);
+}
+.star-item .star-num {
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.star-item .star-mark {
+  font-size: 0.55rem;
+  margin-top: 1px;
+  color: var(--accent);
+  transition: color 0.4s ease;
+}
+.star-item:hover .star-mark {
+  color: var(--bg);
+}
+
 @media (max-width: 900px) {
   #fab { bottom: 20px; right: 20px; width: 46px; height: 46px; font-size: 1rem; }
+}
+@media (max-width: 900px) {
+  #nav-buttons { bottom: 22px; right: 76px; gap: 5px; }
+  .nav-btn { width: 28px; height: 28px; font-size: 0.75rem; }
+  #star-list { right: 8px; gap: 4px; }
+  .star-item { width: 30px; height: 30px; }
+  .star-item .star-num { font-size: 0.68rem; }
+  .star-item .star-mark { font-size: 0.48rem; }
 }
 
 /* FOOTER */
@@ -596,45 +808,6 @@ footer {
 }
 
 
-
-
-
-
-
-
-/* MOBILE VYLEPŠENIA */
-@media (max-width: 600px) {
-  body { font-size: 16px; }
-  .masthead { padding: 44px 20px 28px; }
-  .masthead h1 { font-size: 2rem; }
-  .masthead .subtitle { font-size: 0.9rem; }
-  .topnav { padding: 8px 12px; gap: 6px; }
-  .topnav a { font-size: 10px; padding: 5px 10px; }
-  .content-wrap { padding: 0 14px; }
-  .otazka { padding: 20px 16px 20px; margin-bottom: 24px; }
-  .otazka-header { padding: 0 0 14px; margin-bottom: 14px; gap: 10px; }
-  .otazka-num { font-size: 1.6rem; min-width: 44px; }
-  .otazka-title { font-size: 1.1rem; }
-  .section { padding: 14px 0; }
-  .section h4 { font-size: 0.9rem; }
-  ul li { font-size: 0.88rem; line-height: 1.6; }
-  .priklad { font-size: 0.85rem; padding: 10px 12px; }
-  .section-label { font-size: 9px; padding: 3px 8px; margin-bottom: 10px; }
-  .prehled-card { padding: 14px; }
-  .card-num { font-size: 1.4rem; min-width: 36px; }
-  .card-tema { font-size: 0.95rem; }
-  .card-sloh { font-size: 0.75rem; }
-  .card-diela { font-size: 0.75rem; }
-  .sloh-card { padding: 14px; }
-  .sc-name { font-size: 0.95rem; }
-  .sc-znaky { font-size: 0.82rem; }
-  .search-input { font-size: 0.95rem; padding: 10px 14px; }
-
-  #fab { width: 44px; height: 44px; font-size: 1rem; bottom: 16px; right: 16px; }
-  .section-banner { padding: 28px 20px 24px; }
-  .section-banner h2 { font-size: 1.6rem; }
-}
-
   /* TEMA INTRO */
   .tema-intro {
     background: var(--highlight);
@@ -650,6 +823,100 @@ footer {
   }
   .tema-intro strong { color: var(--accent); }
 
+
+/* ── ESTETICKÉ VYLEPŠENIA ── */
+
+/* 1. Vyhladená typografia */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+}
+
+/* 2. Farebné označenie textu */
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* 3. Krajší scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb {
+  background: #3a3d4a;
+  border-radius: 5px;
+  border: 2px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover { background: #5a5d6a; }
+
+/* 4. Hover efekty */
+
+/* Otázky — jemný tieň bez pohybu */
+.otazka {
+  transition: box-shadow 0.5s ease, border-color 0.5s ease;
+}
+.otazka:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+  border-color: rgba(224,123,84,0.3);
+}
+.otazka-num {
+  transition: color 0.4s ease;
+}
+.otazka:hover .otazka-num {
+  color: var(--accent);
+}
+
+/* Prehľad karty — elegantný hover bez pohybu */
+.prehled-card {
+  transition: box-shadow 0.5s ease, border-color 0.5s ease;
+}
+.prehled-card:hover {
+  box-shadow: 0 0 0 1px var(--accent), 0 8px 24px rgba(0,0,0,0.3);
+  border-color: var(--accent);
+}
+.prehled-card .card-num {
+  transition: color 0.5s ease;
+}
+.prehled-card:hover .card-num {
+  color: var(--accent);
+}
+
+/* Sloh karty — rovnaký princíp */
+.sloh-card {
+  transition: box-shadow 0.5s ease, border-color 0.5s ease;
+}
+.sloh-card:hover {
+  box-shadow: 0 0 0 1px #4a9e6b, 0 8px 24px rgba(0,0,0,0.3);
+  border-color: #4a9e6b;
+}
+
+/* Navigačné tlačidlá — Poznámky, Rýchly prehľad, Slohové útvary */
+.topnav a {
+  transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  position: relative;
+}
+.topnav a::after {
+  content: "";
+  position: absolute;
+  bottom: -1px; left: 50%; right: 50%;
+  height: 2px;
+  background: var(--accent);
+  transition: left 0.4s ease, right 0.4s ease;
+}
+.topnav a:hover::after,
+.topnav a.active::after {
+  left: 12%; right: 12%;
+}
+
+/* FAB */
+#fab {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+#fab:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(224,123,84,0.35);
+}
 </style>
 </head>
 <body>
@@ -806,6 +1073,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">01</span>
     <h2 class="otazka-title">Antická literatúra <em>· reklamný leták</em></h2></div>
+  <button class="star-btn" data-star="1" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -854,6 +1122,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">02</span>
     <h2 class="otazka-title">Klasicizmus <em>· anketa</em></h2></div>
+  <button class="star-btn" data-star="2" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -906,6 +1175,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">03</span>
     <h2 class="otazka-title">Biblia a literatúra <em>· sťažnosť</em></h2></div>
+  <button class="star-btn" data-star="3" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -947,6 +1217,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">04</span>
     <h2 class="otazka-title">Outsider <em>· umelecký opis</em></h2></div>
+  <button class="star-btn" data-star="4" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -997,6 +1268,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">05</span>
     <h2 class="otazka-title">Prvá svetová vojna v literatúre <em>· noticka — správa</em></h2></div>
+  <button class="star-btn" data-star="5" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -1039,6 +1311,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">06</span>
     <h2 class="otazka-title">Druhá svetová vojna v literatúre <em>· rečnícky prejav</em></h2></div>
+  <button class="star-btn" data-star="6" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -1080,6 +1353,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">07</span>
     <h2 class="otazka-title">Láska v literatúre <em>· obhajobná reč</em></h2></div>
+  <button class="star-btn" data-star="7" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -1124,6 +1398,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">08</span>
     <h2 class="otazka-title">Dedina v literatúre <em>· komerčný inzerát</em></h2></div>
+  <button class="star-btn" data-star="8" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -1164,6 +1439,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">09</span>
     <h2 class="otazka-title">Realizmus <em>· charakteristika</em></h2></div>
+  <button class="star-btn" data-star="9" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -1207,6 +1483,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">10</span>
     <h2 class="otazka-title">Romantizmus <em>· petícia</em></h2></div>
+  <button class="star-btn" data-star="10" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -1256,6 +1533,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">11</span>
     <h2 class="otazka-title">Dráma <em>· monológ</em></h2></div>
+  <button class="star-btn" data-star="11" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -1303,6 +1581,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">12</span>
     <h2 class="otazka-title">Orava v literárnych textoch <em>· diskusný príspevok</em></h2></div>
+  <button class="star-btn" data-star="12" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -1340,6 +1619,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">13</span>
     <h2 class="otazka-title">Moderné prúdy v literatúre <em>· pracovný postup</em></h2></div>
+  <button class="star-btn" data-star="13" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -1392,6 +1672,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">14</span>
     <h2 class="otazka-title">Lyrizovaná próza a motív návratu <em>· prednáška</em></h2></div>
+  <button class="star-btn" data-star="14" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -1428,6 +1709,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">15</span>
     <h2 class="otazka-title">Moderná próza <em>· interview</em></h2></div>
+  <button class="star-btn" data-star="15" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -1474,6 +1756,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">16</span>
     <h2 class="otazka-title">Ľudské bytie v literatúre <em>· agitácia</em></h2></div>
+  <button class="star-btn" data-star="16" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -1521,6 +1804,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">17</span>
     <h2 class="otazka-title">Netradičné postupy v literatúre <em>· recenzia</em></h2></div>
+  <button class="star-btn" data-star="17" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -1570,6 +1854,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">18</span>
     <h2 class="otazka-title">Rozprávač <em>· argumentácia</em></h2></div>
+  <button class="star-btn" data-star="18" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -1607,6 +1892,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">19</span>
     <h2 class="otazka-title">Román <em>· článok</em></h2></div>
+  <button class="star-btn" data-star="19" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -1652,6 +1938,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">20</span>
     <h2 class="otazka-title">Problém generácií v literatúre <em>· autocharakteristika</em></h2></div>
+  <button class="star-btn" data-star="20" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -1698,6 +1985,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">21</span>
     <h2 class="otazka-title">Slovenská poézia <em>· porovnávacia charakteristika</em></h2></div>
+  <button class="star-btn" data-star="21" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -1740,6 +2028,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">22</span>
     <h2 class="otazka-title">Moderná dráma <em>· transformácia textu</em></h2></div>
+  <button class="star-btn" data-star="22" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -1790,6 +2079,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">23</span>
     <h2 class="otazka-title">Literárna postava <em>· úvaha</em></h2></div>
+  <button class="star-btn" data-star="23" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -1835,6 +2125,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">24</span>
     <h2 class="otazka-title">Priateľstvo v literatúre <em>· inzerát</em></h2></div>
+  <button class="star-btn" data-star="24" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -1879,6 +2170,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">25</span>
     <h2 class="otazka-title">Zápletka zmeny, zámeny, premeny <em>· referát</em></h2></div>
+  <button class="star-btn" data-star="25" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -1929,6 +2221,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">26</span>
     <h2 class="otazka-title">Láska ako konflikt <em>· rozprávanie</em></h2></div>
+  <button class="star-btn" data-star="26" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -1978,6 +2271,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">27</span>
     <h2 class="otazka-title">Humor v literatúre <em>· odborná práca</em></h2></div>
+  <button class="star-btn" data-star="27" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -2029,6 +2323,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">28</span>
     <h2 class="otazka-title">Kompozícia literárneho textu <em>· pracovná zmluva</em></h2></div>
+  <button class="star-btn" data-star="28" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -2068,6 +2363,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">29</span>
     <h2 class="otazka-title">Dobro a zlo v literatúre <em>· jednoduchá správa</em></h2></div>
+  <button class="star-btn" data-star="29" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -2111,6 +2407,7 @@ footer {
   <div class="otazka-header">
   <div class="otazka-header-text"><span class="otazka-num">30</span>
     <h2 class="otazka-title">Epika <em>· bibliografický záznam</em></h2></div>
+  <button class="star-btn" data-star="30" aria-label="Označiť ako záložku" title="Označiť ako záložku"><span class="star-icon">☆</span></button>
 </div>
   <div class="section">
     <span class="section-label literatura">Literárna téma</span>
@@ -2159,7 +2456,7 @@ footer {
   </div>
 </section>
 
-</div><!-- /content-wrap -->
+</div><!-- /.content-wrap slovenčina -->
 
 <!-- ============================================================ -->
 <!-- RÝCHLY PREHĽAD -->
@@ -2186,7 +2483,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Klasicizmus</div>
         <div class="card-sloh">anketa</div>
-        <div class="card-diela">Molière — Lakomec; Hollý — Svätopluk; Kollár — Slávy dcera</div>
+        <div class="card-diela">Molière — Lakomec; Kollár — Slávy dcera; Hollý — Svätopluk; Bernolák</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(3); return false;">
@@ -2194,7 +2491,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Biblia a literatúra</div>
         <div class="card-sloh">sťažnosť</div>
-        <div class="card-diela">Gavlovič — Valaská škola; Rúfus; Dilong; Bukovčan — Kým kohút nezaspieva</div>
+        <div class="card-diela">Gavlovič — Valaská škola; Hviezdoslav — Herodes a Herodias; Dilong; Rúfus; Bukovčan — Kým kohút nezaspieva</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(4); return false;">
@@ -2202,7 +2499,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Outsider</div>
         <div class="card-sloh">umelecký opis</div>
-        <div class="card-diela">Hugo — Chrám; Kráľ — Divný Janko; Kukučín — Neprebudený; Hronský — Jozef Mak</div>
+        <div class="card-diela">Hugo — Quasimodo; Kráľ — Divný Janko; Kukučín — Neprebudený; Tajovský — Maco Mlieč; Hronský — Jozef Mak; Chrobák — Drak</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(5); return false;">
@@ -2210,7 +2507,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Prvá svetová vojna</div>
         <div class="card-sloh">noticka — správa</div>
-        <div class="card-diela">Remarque — Na západe nič nové; Urban — Živý bič; Rolland — Peter a Lucia; Hviezdoslav — Krvavé sonety</div>
+        <div class="card-diela">Rolland — Peter a Lucia; Hviezdoslav — Krvavé sonety; Urban — Živý bič; Remarque — Na západe nič nové</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(6); return false;">
@@ -2218,7 +2515,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Druhá svetová vojna</div>
         <div class="card-sloh">rečnícky prejav</div>
-        <div class="card-diela">Mňačko — Ako chutí moc; Bukovčan — Kým kohút; Bednár — Kolíska, Sklený vrch; Styron — Sofiina voľba</div>
+        <div class="card-diela">Mňačko — Ako chutí moc; Bukovčan — Kým kohút nezaspieva; Bednár — Kolíska, Sklený vrch; Styron — Sofiina voľba</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(7); return false;">
@@ -2226,7 +2523,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Láska v literatúre</div>
         <div class="card-sloh">obhajobná reč</div>
-        <div class="card-diela">Sládkovič — Marína; Figuli — Tri gaštanové kone; Tolstoj — Anna Karenina; Hugo — Chrám</div>
+        <div class="card-diela">Sládkovič — Marína; Figuli — Tri gaštanové kone; Tolstoj — Anna Karenina; Hugo — Chrám Matky Božej</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(8); return false;">
@@ -2234,7 +2531,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Dedina v literatúre</div>
         <div class="card-sloh">komerčný inzerát</div>
-        <div class="card-diela">Kukučín — Keď báčik; Hviezdoslav — Ežo Vlkolinský; Tajovský — Mamka Pôstková; Timrava — Ťapákovci</div>
+        <div class="card-diela">Kukučín — Keď báčik; Hviezdoslav — Ežo Vlkolinský; Tajovský — Mamka Pôstková, Maco Mlieč; Timrava — Ťapákovci</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(9); return false;">
@@ -2250,7 +2547,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Romantizmus</div>
         <div class="card-sloh">petícia</div>
-        <div class="card-diela">Chalupka — Mor ho!; Botto — Smrť Jánošíkova; Sládkovič — Marína; Hugo — Chrám; Puškin — Kapitánova dcéra</div>
+        <div class="card-diela">Chalupka — Mor ho!; Kráľ — Zakliata panna; Sládkovič — Marína, Detvan; Botto — Smrť Jánošíkova; Hugo — Chrám; Puškin — Kapitánova dcéra</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(11); return false;">
@@ -2258,7 +2555,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Dráma</div>
         <div class="card-sloh">monológ</div>
-        <div class="card-diela">Sofokles — Antigona; Shakespeare — Romeo a Júlia; Beckett — Čakanie na Godota; Lasica/Satinský</div>
+        <div class="card-diela">Sofokles — Antigona; Shakespeare — Romeo a Júlia; Beckett — Čakanie na Godota; Lasica &amp; Satinský — Soirée</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(12); return false;">
@@ -2266,7 +2563,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Orava v literatúre</div>
         <div class="card-sloh">diskusný príspevok</div>
-        <div class="card-diela">Hviezdoslav (Vyšný Kubín); Kukučín (Jasenová); Figuli; Urban (Rabčice); Dilong (Trstená)</div>
+        <div class="card-diela">Hviezdoslav (Vyšný Kubín); Kukučín (Jasenová); Figuli (Vyšný Kubín); Urban (Rabčice); Dilong (Trstená)</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(13); return false;">
@@ -2274,7 +2571,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Moderné prúdy</div>
         <div class="card-sloh">pracovný postup</div>
-        <div class="card-diela">Krasko — Nox et solitudo; Smrek — Cválajúce dni; Lukáč — O láske neláskavej; Fabry — nadrealizmus</div>
+        <div class="card-diela">Krasko — Nox et solitudo; Smrek — vitalizmus; Lukáč — O láske neláskavej; Dilong — kat. moderna; Fabry — nadrealizmus</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(14); return false;">
@@ -2282,7 +2579,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Lyrizovaná próza a návrat</div>
         <div class="card-sloh">prednáška</div>
-        <div class="card-diela">Chrobák — Drak sa vracia; Figuli — Tri gaštanové kone; Hronský — Jozef Mak; Stodola — Bačova žena</div>
+        <div class="card-diela">Chrobák — Drak sa vracia; Figuli — Tri gaštanové kone; Hronský — Jozef Mak; Chrobák — Návrat Ondreja Baláža; Stodola — Bačova žena</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(15); return false;">
@@ -2290,7 +2587,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Moderná próza</div>
         <div class="card-sloh">interview</div>
-        <div class="card-diela">Eco — Meno ruže; Márquez — Sto rokov samoty; Jaroš — Tisícročná včela; Beckett — Čakanie na Godota</div>
+        <div class="card-diela">Eco — Meno ruže (postmoderna); Márquez — Sto rokov samoty (mag. realizmus); Jaroš — Tisícročná včela; Beckett — Čakanie na Godota</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(16); return false;">
@@ -2298,7 +2595,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Ľudské bytie</div>
         <div class="card-sloh">agitácia</div>
-        <div class="card-diela">Hronský — Jozef Mak; Bukovčan — Kým kohút; Stodola — Bačova žena; Sofokles — Antigona</div>
+        <div class="card-diela">Hronský — Jozef Mak; Bukovčan — Kým kohút nezaspieva; Sofokles — Antigona; Stodola — Bačova žena</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(17); return false;">
@@ -2306,7 +2603,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Netradičné postupy</div>
         <div class="card-sloh">recenzia</div>
-        <div class="card-diela">Eco — Meno ruže; Mitana — Psie dni; Beckett — Čakanie na Godota; Kafka — Premena; Dušek</div>
+        <div class="card-diela">Eco — Meno ruže; Mitana — Psie dni; Beckett — Čakanie na Godota; Dušek — Kufor na sny; Kafka — Premena</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(18); return false;">
@@ -2322,7 +2619,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Román</div>
         <div class="card-sloh">článok</div>
-        <div class="card-diela">Urban — Živý bič; Hronský — Jozef Mak; Jaroš — Tisícročná včela; Eco — Meno ruže</div>
+        <div class="card-diela">Urban — Živý bič (unanim.); Hronský — Jozef Mak (soc.); Jaroš — Tisícročná včela (generač.); Eco — Meno ruže (detektívny)</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(20); return false;">
@@ -2330,7 +2627,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Problém generácií</div>
         <div class="card-sloh">autocharakteristika</div>
-        <div class="card-diela">Balzac — Otec Goriot; Salinger — Kto chytá v žite; Jaroš — Tisícročná včela; Hviezdoslav — Ežo</div>
+        <div class="card-diela">Balzac — Otec Goriot; Salinger — Kto chytá v žite; Jaroš — Tisícročná včela; Hviezdoslav — Ežo Vlkolinský</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(21); return false;">
@@ -2338,7 +2635,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Slovenská poézia</div>
         <div class="card-sloh">porovnávacia charakteristika</div>
-        <div class="card-diela">Rúfus — Zvony; Válek — Dotyky; Urban, Peteraj, Lasica — textári</div>
+        <div class="card-diela">Rúfus — Zvony detstva; Válek — Jablko; Urban — Elán; Peteraj — Žbirka; Lasica — textár</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(22); return false;">
@@ -2346,7 +2643,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Moderná dráma</div>
         <div class="card-sloh">transformácia textu</div>
-        <div class="card-diela">Palárik — Dobrodružstvo; Tajovský — Statky-zmätky; Stodola — Bačova žena; Bukovčan; Lasica/Satinský</div>
+        <div class="card-diela">Palárik — Dobrodružstvo; Tajovský — Statky-zmätky; Stodola — Bačova žena; Bukovčan — Kým kohút; Lasica &amp; Satinský — Soirée</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(23); return false;">
@@ -2354,7 +2651,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Literárna postava</div>
         <div class="card-sloh">úvaha</div>
-        <div class="card-diela">Hemingway — Starec a more; Salinger — Holden; Tajovský — Mamka Pôstková; Solženicyn — Šuchov</div>
+        <div class="card-diela">Hemingway — Santiago (Starec a more); Salinger — Holden Caulfield; Tajovský — Mamka Pôstková; Harpagon — charakterový typ</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(24); return false;">
@@ -2362,7 +2659,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Priateľstvo v literatúre</div>
         <div class="card-sloh">inzerát</div>
-        <div class="card-diela">Shakespeare — Hamlet/Horatio; Balzac — Goriot/Rastignac; Remarque — Paul; Styron — Sofia/Stingo</div>
+        <div class="card-diela">Shakespeare — Hamlet &amp; Horatio; Balzac — Goriot &amp; Rastignac; Remarque — Paul &amp; kamaráti; Styron — Sofia &amp; Stingo; Mňačko — Frank &amp; štátnik</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(25); return false;">
@@ -2370,7 +2667,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Zmeny, zámeny, premeny</div>
         <div class="card-sloh">referát</div>
-        <div class="card-diela">Kafka — Premena; Chrobák — Drak; Čechov — Chameleón; Palárik — zámena; Shaw — Pygmalion</div>
+        <div class="card-diela">Kafka — Premena; Chrobák — Drak sa vracia; Čechov — Chameleón; Palárik — Dobrodružstvo (zámena); Shaw — Pygmalion</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(26); return false;">
@@ -2378,7 +2675,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Láska ako konflikt</div>
         <div class="card-sloh">rozprávanie</div>
-        <div class="card-diela">Stodola — Bačova žena; Hugo — Chrám; Hviezdoslav — Hájnikova žena; Figuli — Tri gaštanové kone</div>
+        <div class="card-diela">Stodola — Bačova žena; Kukučín — Dom v stráni; Hugo — Chrám; Hviezdoslav — Hájnikova žena; Chrobák — Drak; Bednár — Sklený vrch</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(27); return false;">
@@ -2386,7 +2683,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Humor v literatúre</div>
         <div class="card-sloh">odborná práca</div>
-        <div class="card-diela">Kukučín — Keď báčik, Rysavá jalovica; Timrava — Ťapákovci; Lasica/Satinský; Beckett</div>
+        <div class="card-diela">Lasica &amp; Satinský — Soirée; Beckett — Čakanie na Godota; Kukučín — Keď báčik, Rysavá jalovica; Timrava — Ťapákovci; Shaw — Pygmalion</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(28); return false;">
@@ -2394,7 +2691,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Kompozícia literárneho textu</div>
         <div class="card-sloh">pracovná zmluva</div>
-        <div class="card-diela">Figuli — reťazový; Bednár — retrospektívny; Chrobák — rámcový; Hronský — rámcový; Urban — paralelný</div>
+        <div class="card-diela">Figuli — reťazový; Bednár — retrospektívny (Sklený vrch, Kolíska); Chrobák — rámcový; Hronský — rámcový; Urban — paralelný</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(29); return false;">
@@ -2402,7 +2699,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Dobro a zlo</div>
         <div class="card-sloh">jednoduchá správa</div>
-        <div class="card-diela">Verne — sci-fi; Tolkien — Pán prsteňov; Christie — Vražda Rogera Ackroyda; Dobšinský — Tri citróny</div>
+        <div class="card-diela">Verne — Cesta na Mesiac (sci-fi); Tolkien — Pán prsteňov (fantasy); Christie — Vražda Rogera Ackroyda (detektívka); Dobšinský — Tri citróny; Bednár — Sklený vrch</div>
       </div>
     </a>
     <a class="prehled-card" href="#" onclick="goToDetail(30); return false;">
@@ -2410,7 +2707,7 @@ footer {
       <div class="card-body">
         <div class="card-tema">Epika</div>
         <div class="card-sloh">bibliografický záznam</div>
-        <div class="card-diela">Kukučín — Keď báčik (poviedka); Rolland — Peter a Lucia (novela); Čechov — Chameleón; Timrava — Ťapákovci</div>
+        <div class="card-diela">Kukučín — Keď báčik (poviedka); Rolland — Peter a Lucia (novela); Čechov — Chameleón (poviedka); Timrava — Ťapákovci (poviedka)</div>
       </div>
     </a>
   </div>
@@ -2611,6 +2908,13 @@ footer {
   </div>
 </div>
 
+<div id="nav-buttons">
+  <button class="nav-btn" id="nav-prev" title="Predošlá otázka" aria-label="Predošlá otázka">↑</button>
+  <button class="nav-btn" id="nav-next" title="Ďalšia otázka" aria-label="Ďalšia otázka">↓</button>
+</div>
+
+<div id="star-list" aria-label="Označené otázky"></div>
+
 <a href="#" id="fab" title="Späť hore">↑</a>
 
 <footer>
@@ -2618,10 +2922,9 @@ footer {
 </footer>
 
 <script>
-  // goToDetail — z rýchleho prehľadu na konkrétnu otázku
   function goToDetail(num) {
-    const el = document.getElementById('otazka-' + num);
-    if (el) el.scrollIntoView({behavior: 'smooth', block: 'start'});
+    var el = document.getElementById("otazka-" + num);
+    if (el) el.scrollIntoView({behavior: "smooth", block: "start"});
   }
 
   // FAB - späť hore
@@ -2633,6 +2936,48 @@ footer {
     e.preventDefault();
     window.scrollTo({top: 0, behavior: 'smooth'});
   });
+
+  // Navigačné šípky — predošlá/ďalšia otázka
+  (function() {
+    const navButtons = document.getElementById('nav-buttons');
+    const navPrev = document.getElementById('nav-prev');
+    const navNext = document.getElementById('nav-next');
+    const sections = Array.from(document.querySelectorAll('section.otazka[id^="otazka-"]'));
+
+    function currentIndex() {
+      const scrollY = window.scrollY;
+      const offset = 100;
+      let active = 0;
+      for (let i = 0; i < sections.length; i++) {
+        const rect = sections[i].getBoundingClientRect();
+        const top = rect.top + scrollY;
+        if (top - offset <= scrollY) {
+          active = i;
+        } else {
+          break;
+        }
+      }
+      return active;
+    }
+
+    function goTo(idx) {
+      if (idx < 0 || idx >= sections.length) return;
+      sections[idx].scrollIntoView({behavior: 'smooth', block: 'start'});
+    }
+
+    navPrev.addEventListener('click', () => goTo(currentIndex() - 1));
+    navNext.addEventListener('click', () => goTo(currentIndex() + 1));
+
+    function updateState() {
+      navButtons.classList.toggle('visible', window.scrollY > 300);
+      const idx = currentIndex();
+      navPrev.disabled = (idx <= 0);
+      navNext.disabled = (idx >= sections.length - 1);
+    }
+
+    window.addEventListener('scroll', updateState, { passive: true });
+    updateState();
+  })();
 
   // Progress bar
   const progressBar = document.getElementById('progress');
@@ -2700,6 +3045,75 @@ footer {
       searchInput.blur();
     }
   });
+
+  // ZÁLOŽKY — hviezdička + zoznam pri scrollbare
+  (function() {
+    var STORAGE_KEY = 'sk-stars';
+
+    function getStarred() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+      catch (e) { return []; }
+    }
+
+    function saveStarred(arr) {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); }
+      catch (e) {}
+    }
+
+    // Aktualizuj vzhľad jedného tlačidla
+    function updateButton(btn) {
+      var saved = getStarred();
+      var num = btn.getAttribute('data-star');
+      var icon = btn.querySelector('.star-icon');
+      var isStarred = saved.indexOf(num) !== -1;
+      btn.classList.toggle('starred', isStarred);
+      icon.textContent = isStarred ? '★' : '☆';
+    }
+
+    // Vykresli zoznam pri scrollbare
+    function renderList() {
+      var list = document.getElementById('star-list');
+      if (!list) return;
+      var saved = getStarred();
+      var sorted = saved.map(function(n) { return parseInt(n, 10); })
+                        .filter(function(n) { return !isNaN(n); })
+                        .sort(function(a, b) { return a - b; });
+      list.innerHTML = '';
+      sorted.forEach(function(num) {
+        var link = document.createElement('a');
+        link.className = 'star-link';
+        link.href = '#otazka-' + num;
+        link.title = 'Prejsť na otázku ' + num;
+        link.innerHTML = '<span class="mini-star">★</span>' + String(num).padStart(2, '0');
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          var target = document.getElementById('otazka-' + num);
+          if (target) target.scrollIntoView({behavior: 'smooth', block: 'start'});
+        });
+        list.appendChild(link);
+      });
+    }
+
+    // Inicializuj všetky tlačidlá
+    document.querySelectorAll('.star-btn').forEach(function(btn) {
+      updateButton(btn);
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var saved = getStarred();
+        var num = btn.getAttribute('data-star');
+        var idx = saved.indexOf(num);
+        if (idx === -1) { saved.push(num); }
+        else { saved.splice(idx, 1); }
+        saveStarred(saved);
+        updateButton(btn);
+        renderList();
+      });
+    });
+
+    // Prvotné vykreslenie zoznamu
+    renderList();
+  })();
 
 </script>
 
